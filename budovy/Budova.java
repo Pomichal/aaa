@@ -21,5 +21,8 @@ public class Budova {
 		public void vyroba(Mesto mesto, int druh){
 			
 		}
+		public String vyslatVypravu(Mesto[] mesta, int start, int ciel, int typ, int mnozstvo, int zdroje){
+			return "";
+		}
 
 }

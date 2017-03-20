@@ -19,12 +19,10 @@ public class Rozhranie extends Application{
 	private Label cielOzn = new Label("Ciel");
 	private Label typTovaruOzn = new Label("TypTovaru");	
 	private Label mnozstvoTovaruOzn = new Label("MnozstvoTovaru");
-	private Label ucelVypravy = new Label("UcelVypravy");
 	private TextField mnozstvo = new TextField();
-	final ChoiceBox cbstart = new ChoiceBox(FXCollections.observableArrayList("Bavlnovo","Drevovo","Kamenovo","Mramorovo"));
-	final ChoiceBox cbciel = new ChoiceBox(FXCollections.observableArrayList("Bavlnovo","Drevovo","Kamenovo","Mramorovo"));
-	final ChoiceBox cbtyp = new ChoiceBox(FXCollections.observableArrayList("Bavlna","Drevo","Kamen","Mramor"));
-	final ChoiceBox cbucel = new ChoiceBox(FXCollections.observableArrayList("Predaj","Presun"));
+	final ComboBox<Integer> cbstart = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2,3));
+	final ComboBox<Integer> cbciel = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2,3));
+	final ComboBox<Integer> cbtyp = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2,3));
 
 
 	@Override
@@ -43,8 +41,6 @@ public class Rozhranie extends Application{
 		pane.getChildren().add(cbtyp);
 		pane.getChildren().add(mnozstvoTovaruOzn);
 		pane.getChildren().add(mnozstvo);
-		pane.getChildren().add(ucelVypravy);
-		pane.getChildren().add(cbucel);
 		pane.getChildren().add(vyprava);
 
 		
@@ -58,6 +54,14 @@ public class Rozhranie extends Application{
 							+ Turn.vypis(Mesta));
 			}
 		);
+		
+		vyprava.setOnAction(e -> {
+			int start=cbstart.getValue();
+			int ciel=cbciel.getValue();
+			int typ=cbtyp.getValue();
+			int mnoz =Integer.parseInt(mnozstvo.getText());
+			vypis.appendText(Mesta[0].getStajna().vyslatVypravu(Mesta, start, ciel, typ, mnoz, 0) + "\n");
+		});
 		
 		hlavneOkno.setScene(new Scene(pane, 560, 300));
 		hlavneOkno.show();

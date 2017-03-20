@@ -8,7 +8,8 @@ public class Mesto implements ZakladMesta{
 	private int[] cena={0,0,0,0};  //cena tovarov
 	private static int peniaze=50;  //zdroje hraca
 	private int[] vzdialenost={0,0,0,0}; //vzdialenost do ostatnych miest (v kolach)
-	protected Budova[] budovy = new Budova[3];
+	protected Tovaren tovaren = new Tovaren(0);
+	protected Stajna stajna = new Stajna(0);
 	
 	
 	
@@ -22,16 +23,25 @@ public class Mesto implements ZakladMesta{
 	}
 	public void postavBudovu(int typ){
 		switch(typ){
-		case 0: this.budovy[0]=new Tovaren(1);
+		case 0: this.tovaren.zvysUroven(1);;
 				break;
-		case 1: this.budovy[1]= new Stajna(1);
+		case 1: this.stajna.zvysUroven(1);
 				break;
 //		case 2: this.budovy[2]=new Stajna(1);
 //				break;
 		}
 	}
 	public Budova getBudova(int i){
-		return budovy[i];
+		switch(i){
+		case 0: return this.tovaren;
+		case 1: return this.stajna;
+//		case 2: this.budovy[2]=new Stajna(1);
+//				break;
+		}
+		return null;
+	}
+	public Stajna getStajna(){
+		return stajna;
 	}
 	public void setMoje(boolean moje){
 		this.moje=moje;
@@ -86,8 +96,8 @@ public class Mesto implements ZakladMesta{
 
 	
 	public void vyroba(int druh){ //pre kazdy tip mesta specificke
-		if(this.budovy[0]!=null)
-			this.budovy[0].vyroba(this, druh);
+		if(this.tovaren!=null)
+			this.tovaren.vyroba(this, druh);
 	}
 	
 
