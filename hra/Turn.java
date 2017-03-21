@@ -19,13 +19,17 @@ private static int kolo=0;
 		return sprava;
 	}
 	
-	public static int Kolo(Mesto[] Mesta){
+	public static String Kolo(Mesto[] Mesta){
 		int i;
+		String sprava="";
 		for(i=0;i<4; i++){
-			if(Mesta[i].getMoje())
+			if(Mesta[i].getMoje()){
 			Mesta[i].vyroba(i);
+			sprava= sprava + Mesta[i].getStajna().overPrichod(Mesta[i], Mesta);
+			}
 		}
-		return ++kolo;
+		++kolo;
+		return kolo +". kolo\n" + sprava;
 	}
 	
 	public static Mesto[] Nastav(){  //nastavenie hodnot na zaciatok hry, TREBA OPRAVIT

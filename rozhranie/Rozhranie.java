@@ -49,7 +49,7 @@ public class Rozhranie extends Application{
 		turn.setOnAction(e -> { // lambda výraz s odvodením typu z kontextu
 			vypis.clear();
 			turn.setText("Nove kolo");
-			vypis.appendText(Turn.Kolo(Mesta) + ". Kolo\n"
+			vypis.appendText(Turn.Kolo(Mesta)
 							+ Mesta[0].getPeniaze() + " zlatych\n" 
 							+ Turn.vypis(Mesta));
 			}
@@ -60,7 +60,7 @@ public class Rozhranie extends Application{
 			int ciel=cbciel.getValue();
 			int typ=cbtyp.getValue();
 			int mnoz =Integer.parseInt(mnozstvo.getText());
-			vypis.appendText(Mesta[0].getStajna().vyslatVypravu(Mesta, start, ciel, typ, mnoz, 0) + "\n");
+			vypis.appendText(Mesta[start].getStajna().vyslatVypravu(Mesta, start, ciel, typ, mnoz, 0) + "\n");
 		});
 		
 		hlavneOkno.setScene(new Scene(pane, 560, 300));
