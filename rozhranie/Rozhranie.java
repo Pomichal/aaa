@@ -1,7 +1,6 @@
 package rozhranie;
 
 import mesta.*;
-
 import hra.Turn;
 import javafx.collections.FXCollections;
 import javafx.stage.Stage;
@@ -11,6 +10,22 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
 public class Rozhranie extends Application{
+	
+	private Button BavlnovoTlacidlo = new Button("Bavlnovo");
+	
+	/*public void start(Stage hlavneOkno) {
+		hlavneOkno.setTitle("Semitas et Civitas");
+		
+		FlowPane pane = new FlowPane();
+		
+		pane.getChildren().add(BavlnovoTlacidlo);
+		
+		BavlnovoTlacidlo.setOnAction(e -> new OknoBavlnovo());
+
+		hlavneOkno.setScene(new Scene(pane, 400, 250));
+		hlavneOkno.show();
+	}*/
+	
 	private Button turn = new Button("Turn");
 	private Button vyprava = new Button("Poslat vypravu");
 	private TextArea vypis = new TextArea();
@@ -34,6 +49,7 @@ public class Rozhranie extends Application{
 		FlowPane pane = new FlowPane();
 		
 		pane.getChildren().add(turn);
+		pane.getChildren().add(BavlnovoTlacidlo);
 		pane.getChildren().add(skrolVypis);
 		pane.getChildren().add(startOzn);
 		pane.getChildren().add(cbstart);
@@ -63,6 +79,8 @@ public class Rozhranie extends Application{
 			int mnoz =Integer.parseInt(mnozstvo.getText());
 			vypis.appendText(Mesta[start].getStajna().vyslatVypravu(Mesta, start, ciel, typ, mnoz, 0) + "\n");
 		});
+		
+		BavlnovoTlacidlo.setOnAction(e -> new OknoBavlnovo(Mesta));
 		
 		Peniaze = new SledovatelPenazi(Mesta[0]);
 		Mesta[0].pridajSledovatela(Peniaze);;
