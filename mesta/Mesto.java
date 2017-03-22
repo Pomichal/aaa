@@ -1,6 +1,10 @@
 package mesta;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import budovy.*;
+import hra.Sledovatel;
 
 public class Mesto implements ZakladMesta{
 	private boolean moje;  //ovladnutie mestskeho trhu
@@ -11,6 +15,17 @@ public class Mesto implements ZakladMesta{
 	protected Tovaren tovaren = new Tovaren(0);
 	protected Stajna stajna = new Stajna(0);
 	
+	transient private List<Sledovatel> sledovatelia = new ArrayList<>();
+
+	public void pridajSledovatela(Sledovatel sledovatelStavu) {
+		sledovatelia.add(sledovatelStavu);
+	}
+	
+	public void upozorniSledovatelov() {
+		for (Sledovatel s : sledovatelia)
+			s.upozorni();
+	}
+
 	
 	
 	public Mesto(boolean moje, int b, int d, int k, int m){ //konstruktor
@@ -95,9 +110,8 @@ public class Mesto implements ZakladMesta{
 	}
 
 	
-	public void vyroba(int druh){ //pre kazdy tip mesta specificke
-		if(this.tovaren!=null)
-			this.tovaren.vyroba(this, druh);
+	public void vyroba(){ //pre kazdy tip mesta specificke
+		
 	}
 	
 

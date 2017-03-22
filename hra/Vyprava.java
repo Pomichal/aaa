@@ -2,7 +2,7 @@ package hra;
 
 public class Vyprava {
 	
-	private int start, ciel, typ, mnozstvo, nosnost, zdroje, uloha, prichod;
+	private int start, ciel, typ, mnozstvo, zdroje, prichod; //nosnost?
 	
 	public Vyprava(int start, int ciel, int typ, int mnozstvo, int zdroje){
 		this.start=start;
@@ -26,17 +26,17 @@ public class Vyprava {
 	public int getMnozstvo(){
 		return mnozstvo;
 	}
-	public int getNosnost(){
-		return nosnost;
+	public void setMnozstvo(int mnozstvo){
+		this.mnozstvo=mnozstvo;
 	}
+	/*public int getNosnost(){
+		return nosnost;
+	}*/
 	public void setZdroje(int zdroje){
 		this.zdroje=zdroje;
 	}
 	public int getZdroje(){
 		return zdroje;
-	}
-	public int getUloha(){
-		return uloha;
 	}
 	public void setPrichod(int prichod){
 		this.prichod=prichod;

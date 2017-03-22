@@ -3,7 +3,7 @@ package hra;
 import mesta.*;
 
 public class Turn {
-
+	
 private static int kolo=0;
 	
 	public static String vypis(Mesto[] Mesta){ //vypis tovaru pre kontrolu
@@ -24,7 +24,7 @@ private static int kolo=0;
 		String sprava="";
 		for(i=0;i<4; i++){
 			if(Mesta[i].getMoje()){
-			Mesta[i].vyroba(i);
+			Mesta[i].vyroba();
 			sprava= sprava + Mesta[i].getStajna().overPrichod(Mesta[i], Mesta);
 			}
 		}
@@ -35,11 +35,12 @@ private static int kolo=0;
 	public static Mesto[] Nastav(){  //nastavenie hodnot na zaciatok hry, TREBA OPRAVIT
 		Mesto[] Mesta = new Mesto[4];         //pocet miest
 		Mesta[0]=new Bavlnovo(true,20,20,20,20);
-		Mesta[1]=new Drevovo(false,20,20,20,20);
+		Mesta[1]=new Drevovo(true,20,20,20,20);
 		Mesta[2]=new Kamenovo(false,20,20,20,20);
 		Mesta[3]=new Mramorovo(false,20,20,20,20);
 		Mesta[0].postavBudovu(0);
 		Mesta[0].postavBudovu(1);
+		Mesta[1].postavBudovu(0);
 		Mesta[0].setCeny(3,5,10,15);
 		Mesta[1].setCeny(5, 3, 10, 15);
 		Mesta[2].setCeny(15,5,3,10);

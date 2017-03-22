@@ -23,6 +23,8 @@ public class Rozhranie extends Application{
 	final ComboBox<Integer> cbstart = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2,3));
 	final ComboBox<Integer> cbciel = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2,3));
 	final ComboBox<Integer> cbtyp = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2,3));
+	
+	private SledovatelPenazi Peniaze;
 
 
 	@Override
@@ -50,7 +52,6 @@ public class Rozhranie extends Application{
 			vypis.clear();
 			turn.setText("Nove kolo");
 			vypis.appendText(Turn.Kolo(Mesta)
-							+ Mesta[0].getPeniaze() + " zlatych\n" 
 							+ Turn.vypis(Mesta));
 			}
 		);
@@ -62,6 +63,10 @@ public class Rozhranie extends Application{
 			int mnoz =Integer.parseInt(mnozstvo.getText());
 			vypis.appendText(Mesta[start].getStajna().vyslatVypravu(Mesta, start, ciel, typ, mnoz, 0) + "\n");
 		});
+		
+		Peniaze = new SledovatelPenazi(Mesta[0]);
+		Mesta[0].pridajSledovatela(Peniaze);;
+		pane.getChildren().add(Peniaze);
 		
 		hlavneOkno.setScene(new Scene(pane, 560, 300));
 		hlavneOkno.show();

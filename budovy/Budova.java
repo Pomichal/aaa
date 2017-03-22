@@ -18,7 +18,7 @@ public class Budova {
 		public void setUroven(int uroven){
 			this.uroven=uroven;
 		}
-		public void vyroba(Mesto mesto, int druh){
+		public void vyroba(Mesto mesto){
 			
 		}
 		public String vyslatVypravu(Mesto[] mesta, int start, int ciel, int typ, int mnozstvo, int zdroje){
