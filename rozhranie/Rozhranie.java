@@ -37,6 +37,7 @@ public class Rozhranie extends Application{
 	private Label cielOzn = new Label("Ciel");
 	private Label typTovaruOzn = new Label("TypTovaru");	
 	private Label mnozstvoTovaruOzn = new Label("MnozstvoTovaru");
+	private Label bohatstvo = new Label("Peniaze:");
 	private TextField mnozstvo = new TextField();
 	final ComboBox<Integer> cbstart = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2,3));
 	final ComboBox<Integer> cbciel = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2,3));
@@ -86,16 +87,31 @@ public class Rozhranie extends Application{
 			vypis.appendText(Mesta[start].getStajna().vyslatVypravu(Mesta, start, ciel, typ, mnoz, 0) + "\n");
 		});
 		
-		BavlnovoTlacidlo.setOnAction(e -> new OknoBavlnovo(Mesta));
-		DrevovoTlacidlo.setOnAction(e -> new OknoDrevovo(Mesta));
-		KamenovoTlacidlo.setOnAction(e -> new OknoKamenovo(Mesta));
-		MramorovoTlacidlo.setOnAction(e -> new OknoMramorovo(Mesta));
+		BavlnovoTlacidlo.setOnAction(e -> {
+		new OknoBavlnovo(Mesta);
+		Mesta[0].upozorniSledovatelov();
+		});
+		
+		DrevovoTlacidlo.setOnAction(e -> {
+		new OknoDrevovo(Mesta);
+		Mesta[0].upozorniSledovatelov();
+		});
+		
+		KamenovoTlacidlo.setOnAction(e -> {
+		new OknoKamenovo(Mesta);Mesta[0].upozorniSledovatelov();
+		});
+		
+		MramorovoTlacidlo.setOnAction(e -> {
+		new OknoMramorovo(Mesta);
+		Mesta[0].upozorniSledovatelov();
+		});
 		
 		Peniaze = new SledovatelPenazi(Mesta[0]);
 		Mesta[0].pridajSledovatela(Peniaze);;
+		pane.getChildren().add(bohatstvo);
 		pane.getChildren().add(Peniaze);
 		
-		hlavneOkno.setScene(new Scene(pane, 560, 300));
+		hlavneOkno.setScene(new Scene(pane, 500, 300));
 		hlavneOkno.show();
 	}
 	public static void main(String[] args) {

@@ -14,6 +14,7 @@ public class Mesto implements ZakladMesta{
 	private int[] vzdialenost={0,0,0,0}; //vzdialenost do ostatnych miest (v kolach)
 	protected Tovaren tovaren = new Tovaren(0);
 	protected Stajna stajna = new Stajna(0);
+	protected Sklad sklad = new Sklad(0);
 	
 	transient private List<Sledovatel> sledovatelia = new ArrayList<>();
 
@@ -42,16 +43,15 @@ public class Mesto implements ZakladMesta{
 				break;
 		case 1: this.stajna.zvysUroven(1);
 				break;
-//		case 2: this.budovy[2]=new Stajna(1);
-//				break;
+		case 2: this.sklad.zvysUroven(1);
+				break;
 		}
 	}
 	public Budova getBudova(int i){
 		switch(i){
 		case 0: return this.tovaren;
 		case 1: return this.stajna;
-//		case 2: this.budovy[2]=new Stajna(1);
-//				break;
+		case 2: return this.sklad;
 		}
 		return null;
 	}
