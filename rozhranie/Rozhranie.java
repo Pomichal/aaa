@@ -12,6 +12,9 @@ import javafx.scene.layout.*;
 public class Rozhranie extends Application{
 	
 	private Button BavlnovoTlacidlo = new Button("Bavlnovo");
+	private Button DrevovoTlacidlo = new Button("Drevovo");
+	private Button KamenovoTlacidlo = new Button("Kamenovo");
+	private Button MramorovoTlacidlo = new Button("Mramorovo");
 	
 	/*public void start(Stage hlavneOkno) {
 		hlavneOkno.setTitle("Semitas et Civitas");
@@ -50,6 +53,9 @@ public class Rozhranie extends Application{
 		
 		pane.getChildren().add(turn);
 		pane.getChildren().add(BavlnovoTlacidlo);
+		pane.getChildren().add(DrevovoTlacidlo);
+		pane.getChildren().add(KamenovoTlacidlo);
+		pane.getChildren().add(MramorovoTlacidlo);
 		pane.getChildren().add(skrolVypis);
 		pane.getChildren().add(startOzn);
 		pane.getChildren().add(cbstart);
@@ -81,6 +87,9 @@ public class Rozhranie extends Application{
 		});
 		
 		BavlnovoTlacidlo.setOnAction(e -> new OknoBavlnovo(Mesta));
+		DrevovoTlacidlo.setOnAction(e -> new OknoDrevovo(Mesta));
+		KamenovoTlacidlo.setOnAction(e -> new OknoKamenovo(Mesta));
+		MramorovoTlacidlo.setOnAction(e -> new OknoMramorovo(Mesta));
 		
 		Peniaze = new SledovatelPenazi(Mesta[0]);
 		Mesta[0].pridajSledovatela(Peniaze);;
