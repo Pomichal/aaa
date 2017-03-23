@@ -28,14 +28,14 @@ public class Stajna extends Budova {
 			 			if(mesta[start].getMoje()){
 			 				int dialka= mesta[start].getVzdialenost(ciel);
 			 			//	System.out.println("Vzdialenost (1 zlato na jednotku/kolo): "+ dialka);
-			 				if(mesta[start].getTovar(typ)<mnozstvo) return ("Nedostatok tovaru");
+			 				if(mesta[start].getSklad().getTovar(typ)<mnozstvo) return ("Nedostatok tovaru");
 			 				else if(mnozstvo*(4-this.uroven)*mesta[start].getVzdialenost(ciel)>mesta[start].getPeniaze())
 			 					return("Nedostatok zlatych");
 			 				else if(start==ciel) return "Rovnaky start aj ciel";
 			 				else{
 			 					while(j<this.vypravy.length && this.vypravy[j]!=null) j++;
 			 						if(j<3){  //TREBA OPRAVIT PODLA UROVNE!
-			 						mesta[start].znizTovar(typ, mnozstvo);
+			 						mesta[start].getSklad().znizTovar(typ, mnozstvo);
 			 						this.vypravy[j]= new Vyprava(start,ciel, typ, mnozstvo,zdroje);
 			 						this.vypravy[j].setPrichod(dialka/(this.uroven));
 			 						mesta[start].znizPeniaze(mnozstvo*dialka*(4-this.uroven));  //odpocita naklady na cestu
@@ -56,20 +56,20 @@ public class Stajna extends Budova {
 		Vyprava[] vypravy = mesto.getStajna().getVypravy();
 		int i,j;
 		String sprava=""; 
-		for(i=0;vypravy[i]!=null;i++)
+		for(i=0;i<3 && vypravy[i]!=null;i++)
 			vypravy[i].znizPrichod();
-		for(i=0;vypravy[i]!=null;i++){
+		for(i=0;i<3 && vypravy[i]!=null;i++){
 	    	if(vypravy[i].getPrichod()==0 && vypravy[i].getMnozstvo()!=0){
 				//mesto.zvysPeniaze(mesta[vypravy[i].getCiel()].getCena(vypravy[i].getTyp())*vypravy[i].getMnozstvo());
 				sprava = sprava + "vyprava dorazila, predany tovar: " + vypravy[i].getMnozstvo() + "kus(ov)\n";
-				vypravy[i].setZdroje(mesta[vypravy[i].getCiel()].getCena(vypravy[i].getTyp())*vypravy[i].getMnozstvo());
+				vypravy[i].setZdroje(mesta[vypravy[i].getCiel()].getSklad().getCena(vypravy[i].getTyp())*vypravy[i].getMnozstvo());
 				vypravy[i].setMnozstvo(0);
 				vypravy[i].setPrichod((mesta[vypravy[i].getCiel()].getVzdialenost(vypravy[i].getStart()))/(this.uroven));
 	    	} else if(vypravy[i].getPrichod()==0 && vypravy[i].getZdroje()!=0){
-				sprava=sprava + "vyprava dorazila, prijem:" + mesta[vypravy[i].getCiel()].getCena(vypravy[i].getTyp()*vypravy[i].getMnozstvo()) + "zlatych\n";
+				sprava=sprava + "vyprava dorazila, prijem:" + mesta[vypravy[i].getCiel()].getSklad().getCena(vypravy[i].getTyp()*vypravy[i].getMnozstvo()) + "zlatych\n";
 				mesto.zvysPeniaze(vypravy[i].getZdroje());
 				vypravy[i]=null;
-				for(j=i+1;vypravy[j]!=null;j++)
+				for(j=i+1;j<3 && vypravy[j]!=null;j++)
 					vypravy[j-1]=vypravy[j];
 				vypravy[j-1]=null;
 				i--;

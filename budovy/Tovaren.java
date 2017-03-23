@@ -7,29 +7,26 @@ public class Tovaren extends Budova {
 		   super(uroven);
 	   }  
 		
-		//Zabezpeci vyrobu
+		//Zabezpeci vyrobu v mestach podla typu
 	    public void vyroba(Mesto mesto){
-		if(mesto.getMoje())
-			mesto.zvysTovar(3, uroven);
+		if(mesto.getMoje()){
+			mesto.getSklad().zvysTovar(3, uroven);
+		}
 		}
 	    public void vyroba(Bavlnovo mesto){
 	    	if(mesto.getMoje())
-	    		mesto.zvysTovar(0, uroven);
+	    		mesto.getSklad().zvysTovar(0, uroven);
 	    }
 	    public void vyroba(Drevovo mesto){
 	    	if(mesto.getMoje())
-	    		mesto.zvysTovar(1, uroven);
+	    		mesto.getSklad().zvysTovar(1, uroven);
 	    }
 	    public void vyroba(Kamenovo mesto){
 	    	if(mesto.getMoje())
-	    		mesto.zvysTovar(2, uroven);
+	    		mesto.getSklad().zvysTovar(2, uroven);
 	    }
 	    public void vyroba(Mramorovo mesto){
 	    	if(mesto.getMoje())
-	    		mesto.zvysTovar(3, uroven);
-	    }
-	    
-	    public void vyslatVypravu(){
-	    	
+	    		mesto.getSklad().zvysTovar(3, uroven);
 	    }
 }

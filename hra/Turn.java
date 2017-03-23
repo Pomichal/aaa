@@ -13,7 +13,7 @@ private static int kolo=0;
 		for(i=0;i<4;i++){  
 			sprava= sprava + mena[i] +": ";
 			for(j=0;j<4;j++)
-				sprava= sprava + Mesta[i].getTovar(j) + ", ";
+				sprava= sprava + Mesta[i].getSklad().getTovar(j) + ", ";
 				sprava= sprava + "\n";
 		}
 		return sprava;
@@ -41,10 +41,10 @@ private static int kolo=0;
 		Mesta[0].postavBudovu(0);
 		Mesta[0].postavBudovu(1);
 		Mesta[1].postavBudovu(0);
-		Mesta[0].setCeny(3,5,10,15);
-		Mesta[1].setCeny(5, 3, 10, 15);
-		Mesta[2].setCeny(15,5,3,10);
-		Mesta[3].setCeny(10,15,5,3);
+		Mesta[0].getSklad().setCeny(3,5,10,15);
+		Mesta[1].getSklad().setCeny(5, 3, 10, 15);
+		Mesta[2].getSklad().setCeny(15,5,3,10);
+		Mesta[3].getSklad().setCeny(10,15,5,3);
 		Mesta[0].setVzdialenost(0,2,3,3);				//nastavenie zaciatocnych hodnot
 		Mesta[1].setVzdialenost(2, 0, 2, 4);
 		Mesta[2].setVzdialenost(3,2,0,4);

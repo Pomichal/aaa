@@ -8,13 +8,11 @@ import hra.Sledovatel;
 
 public class Mesto implements ZakladMesta{
 	private boolean moje;  //ovladnutie mestskeho trhu
-	private int[] mnozstvo={0,0,0,0}; //tipy poloziek:0:bavlna, 1:drevo, 2:kamen, 3:mramor(?)
-	private int[] cena={0,0,0,0};  //cena tovarov
-	private static int peniaze=50;  //zdroje hraca
+	private static int peniaze=500;  //zdroje hraca
 	private int[] vzdialenost={0,0,0,0}; //vzdialenost do ostatnych miest (v kolach)
 	protected Tovaren tovaren = new Tovaren(0);
 	protected Stajna stajna = new Stajna(0);
-	protected Sklad sklad = new Sklad(0);
+	protected Sklad sklad = new Sklad(1);
 	
 	transient private List<Sledovatel> sledovatelia = new ArrayList<>();
 
@@ -34,7 +32,7 @@ public class Mesto implements ZakladMesta{
 		setMoje(moje);
 		int[] a={b,d,k,m};
 		for(i=0;i<4;i++){
-			setTovar(i,a[i]);
+			this.sklad.setTovar(i,a[i]);
 		}
 	}
 	public void postavBudovu(int typ){
@@ -47,16 +45,11 @@ public class Mesto implements ZakladMesta{
 				break;
 		}
 	}
-	public Budova getBudova(int i){
-		switch(i){
-		case 0: return this.tovaren;
-		case 1: return this.stajna;
-		case 2: return this.sklad;
-		}
-		return null;
-	}
 	public Stajna getStajna(){
 		return stajna;
+	}
+	public Sklad getSklad(){
+		return this.sklad;
 	}
 	public void setMoje(boolean moje){
 		this.moje=moje;
@@ -66,28 +59,6 @@ public class Mesto implements ZakladMesta{
 	}
 	public boolean getMoje(){
 		return moje;
-	}
-	public void setTovar(int cislo, int mnozstvo){
-		this.mnozstvo[cislo]=mnozstvo;
-	}
-	public void zvysTovar(int cislo, int mnozstvo){
-		this.mnozstvo[cislo]+=mnozstvo;
-	}
-	public void znizTovar(int cislo, int mnozstvo){
-		this.mnozstvo[cislo]-=mnozstvo;
-	}
-	public int getTovar(int cislo){
-		return mnozstvo[cislo];
-	}
-	public int getCena(int cislo){
-		return cena[cislo];
-	}
-	public void setCeny(int b, int d, int k, int m){
-		int i;
-		int[] a={b,d,k,m};
-		for(i=0;i<4;i++){
-			this.cena[i]=a[i];
-		}
 	}
 	public void setVzdialenost(int b, int d, int k, int m){
 		int i;
