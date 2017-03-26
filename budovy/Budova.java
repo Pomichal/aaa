@@ -1,6 +1,6 @@
 package budovy;
 
-import mesta.*;
+import mesta.Mesto;
 
 public class Budova {
 	protected int uroven;
@@ -9,8 +9,15 @@ public class Budova {
 		   setUroven(uroven);
 	   }   
 	
-	public void zvysUroven(int uroven){
-		   this.uroven+=uroven;
+	public void zvysUroven(Mesto mesto){
+		if(mesto.getSklad().getTovar(0)>=20 && mesto.getSklad().getTovar(1)>=20 && mesto.getSklad().getTovar(2)>=20 && mesto.getSklad().getTovar(3)>=20){
+		mesto.znizPeniaze(100);
+		for(int i=0; i<4;i++){
+			mesto.getSklad().znizTovar(i, 20);
+		}
+		   this.uroven++;
+		   mesto.upozorniSledovatelov();
+		}
 	   }
 		public int getUroven(){
 			return uroven;
@@ -18,11 +25,4 @@ public class Budova {
 		public void setUroven(int uroven){
 			this.uroven=uroven;
 		}
-		public void vyroba(Mesto mesto){
-			
-		}
-		public String vyslatVypravu(Mesto[] mesta, int start, int ciel, int typ, int mnozstvo, int zdroje){
-			return "";
-		}
-
 }

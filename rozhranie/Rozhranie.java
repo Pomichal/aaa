@@ -37,19 +37,26 @@ public class Rozhranie extends Application{
 	private Label cielOzn = new Label("Ciel");
 	private Label typTovaruOzn = new Label("TypTovaru");	
 	private Label mnozstvoTovaruOzn = new Label("MnozstvoTovaru");
+	private Label zamerOzn = new Label("Zamer vypravy: ");
 	private Label bohatstvo = new Label("Peniaze:");
+	private Label pocetkol = new Label("Kolo:");
 	private TextField mnozstvo = new TextField();
-	final ComboBox<Integer> cbstart = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2,3));
-	final ComboBox<Integer> cbciel = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2,3));
+	
+
+	Mesto[] Mesta= Turn.Nastav();
+	
+	final ComboBox<Mesto> cbstart = new ComboBox<Mesto>(FXCollections.observableArrayList(Mesta));
+	final ComboBox<Mesto> cbciel = new ComboBox<Mesto>(FXCollections.observableArrayList(Mesta));
 	final ComboBox<Integer> cbtyp = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2,3));
+	final ComboBox<Integer> cbzamer = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2));
 	
 	private SledovatelPenazi Peniaze;
+	private SledovatelKol Kolo;
 
 
 	@Override
 	public void start(Stage hlavneOkno) {
 		hlavneOkno.setTitle("Semitas et Civitas");
-		Mesto[] Mesta= Turn.Nastav();
 		FlowPane pane = new FlowPane();
 		
 		pane.getChildren().add(turn);
@@ -57,6 +64,14 @@ public class Rozhranie extends Application{
 		pane.getChildren().add(DrevovoTlacidlo);
 		pane.getChildren().add(KamenovoTlacidlo);
 		pane.getChildren().add(MramorovoTlacidlo);
+
+		
+		Kolo = new SledovatelKol();
+		Mesta[0].pridajSledovatela(Kolo);;
+		pane.getChildren().add(pocetkol);
+		Kolo.setPrefWidth(100);
+		pane.getChildren().add(Kolo);
+		
 		pane.getChildren().add(skrolVypis);
 		pane.getChildren().add(startOzn);
 		pane.getChildren().add(cbstart);
@@ -66,25 +81,33 @@ public class Rozhranie extends Application{
 		pane.getChildren().add(cbtyp);
 		pane.getChildren().add(mnozstvoTovaruOzn);
 		pane.getChildren().add(mnozstvo);
+		pane.getChildren().add(zamerOzn);
+		pane.getChildren().add(cbzamer);
 		pane.getChildren().add(vyprava);
-
+		
 		
 		turn.setText("Zacat hru");
 		
 		turn.setOnAction(e -> { // lambda výraz s odvodením typu z kontextu
 			vypis.clear();
 			turn.setText("Nove kolo");
+			Turn.zvysKolo();
 			vypis.appendText(Turn.Kolo(Mesta)
 							+ Turn.vypis(Mesta));
 			}
 		);
 		
 		vyprava.setOnAction(e -> {
-			int start=cbstart.getValue();
-			int ciel=cbciel.getValue();
+			Mesto start=cbstart.getValue();
+			Mesto ciel=cbciel.getValue();
 			int typ=cbtyp.getValue();
 			int mnoz =Integer.parseInt(mnozstvo.getText());
-			vypis.appendText(Mesta[start].getStajna().vyslatVypravu(Mesta, start, ciel, typ, mnoz, 0) + "\n");
+			int zamer=cbzamer.getValue();
+			vypis.clear();
+			if(zamer==2)vypis.appendText(start.getObchod().vyslatVypravu(start, ciel, typ, mnoz) + "\n");
+			else
+			vypis.appendText(start.getStajna().vyslatVypravu(start, ciel, typ, mnoz, zamer) + "\n");
+			vypis.appendText(Turn.vypis(Mesta));
 		});
 		
 		BavlnovoTlacidlo.setOnAction(e -> {

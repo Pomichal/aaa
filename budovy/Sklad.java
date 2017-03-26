@@ -8,12 +8,7 @@ public class Sklad extends Budova {
 	
 	private int[] mnozstvo = {0,0,0,0}; //tipy poloziek:0:bavlna, 1:drevo, 2:kamen, 3:mramor(?)
 	private int[] cena = {0,0,0,0}; //cena tovarov
-	int kapacita=100*uroven;
 	
-	public void zvysUroven(int uroven){
-		   super.zvysUroven(uroven);
-		   kapacita+=50;
-	   }
 	public void setTovar(int cislo, int mnozstvo){
 		this.mnozstvo[cislo]=mnozstvo;
 	}
@@ -25,6 +20,9 @@ public class Sklad extends Budova {
 	}
 	public int getTovar(int cislo){
 		return mnozstvo[cislo];
+	}
+	public int[] getTovar(){
+		return mnozstvo;
 	}
 	public int getCena(int cislo){
 		return cena[cislo];
@@ -40,9 +38,9 @@ public class Sklad extends Budova {
 		int obsadenost=0;
 		for(int mnoz:mnozstvo)
 			obsadenost+=mnoz;
-		return this.kapacita-obsadenost;		
+		return 100*this.uroven-obsadenost;		
 	}
 	public int getKapacita(){
-		return kapacita;
+		return 100*uroven;
 	}
 }

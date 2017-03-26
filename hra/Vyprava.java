@@ -1,23 +1,27 @@
 package hra;
 
+import mesta.*;
+
 public class Vyprava {
 	
-	private int start, ciel, typ, mnozstvo, zdroje, prichod; //nosnost?
+	private int typ, mnozstvo, zdroje, prichod,zamer;
+	private Mesto start,ciel;
 	
-	public Vyprava(int start, int ciel, int typ, int mnozstvo, int zdroje){
+	public Vyprava(Mesto start, Mesto ciel, int typ, int mnozstvo, int zdroje, int zamer){
 		this.start=start;
 		this.ciel=ciel;
 		this.typ=typ;
 		this.mnozstvo=mnozstvo;
 		this.zdroje=zdroje;
+		this.zamer=zamer;
 	}
-	public void setStart(int start){
+	public void setStart(Mesto start){
 		this.start=start;
 	}
-	public int getStart(){
+	public Mesto getStart(){
 		return start;
 	}
-	public int getCiel(){
+	public Mesto getCiel(){
 		return ciel;
 	}
 	public int getTyp(){
@@ -29,9 +33,6 @@ public class Vyprava {
 	public void setMnozstvo(int mnozstvo){
 		this.mnozstvo=mnozstvo;
 	}
-	/*public int getNosnost(){
-		return nosnost;
-	}*/
 	public void setZdroje(int zdroje){
 		this.zdroje=zdroje;
 	}
@@ -47,5 +48,10 @@ public class Vyprava {
 	public int getPrichod(){
 		return prichod;
 	}
-
+	public int getZamer() {
+		return zamer;
+	}
+	public void setZamer(int zamer) {
+		this.zamer = zamer;
+	}
 }
