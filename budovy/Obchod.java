@@ -33,14 +33,14 @@ transient private List<Vyprava> vypravy = new LinkedList<>();
 			 					return("Nedostatok zlatych");
 			 				else if(start==ciel) return "Rovnaky start aj ciel";
 			 				else{
-			 						if(vypravy.size()<2*this.uroven){
+			 						if(vypravy.size()<5){
 			 						start.getSklad().znizTovar(typ, mnozstvo);
 			 						Vyprava vyp = new Vyprava(start,ciel, typ, mnozstvo,0,0);
 			 						vypravy.add(vyp);
 			 						vyp.setPrichod(dialka);
-			 						start.znizPeniaze(mnozstvo*dialka*(4-this.uroven));
+			 						start.znizPeniaze(mnozstvo*dialka);
 			 						start.upozorniSledovatelov();
-			 						return "obchodna vyprava vytvorena, Cena(" + (4-this.uroven) + " zlato na jednotku/kolo): "+ (4-this.uroven)*dialka;
+			 						return "obchodna vyprava vytvorena, Cena(zlato na jednotku/kolo): "+ mnozstvo*dialka;
 			 						}
 			 						else {
 			 						 return ("Nemas volny obchodny karavan!");

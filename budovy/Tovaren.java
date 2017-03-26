@@ -7,6 +7,11 @@ public class Tovaren extends Budova {
 		   super(uroven);
 	   }  
 		
+	public void zvysUroven(Mesto mesto){
+		super.zvysUroven(mesto);
+		mesto.setMoje(true);
+	}
+	
 		//Zabezpeci vyrobu v mestach podla typu
 	    public void vyroba(Mesto mesto){
 		if(mesto.getMoje() && mesto.getSklad().getVolneMiesto()>=uroven){

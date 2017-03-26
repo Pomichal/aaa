@@ -16,7 +16,7 @@ public class Mesto implements ZakladMesta{
 	protected Sklad sklad = new Sklad(1);
 	protected Obchod obchod = new Obchod(1);
 	
-	transient private List<Sledovatel> sledovatelia = new ArrayList<>();
+	transient private static List<Sledovatel> sledovatelia = new ArrayList<>();
 
 	public void pridajSledovatela(Sledovatel sledovatelStavu) {
 		sledovatelia.add(sledovatelStavu);
