@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import mesta.Mesto;
@@ -14,6 +16,8 @@ public class OknoBavlnovo extends Stage {
 
 	private Button Vylepsit = new Button("Vylepsit");
 	private Label bohatstvo = new Label("Peniaze:");
+	private TextArea vypis = new TextArea();
+	private ScrollPane skrolVypis = new ScrollPane(vypis);
 
 	
 	public OknoBavlnovo(Mesto[] Mesta) {
@@ -31,10 +35,12 @@ public class OknoBavlnovo extends Stage {
 		pane.getChildren().add(Peniaze);
 		pane.getChildren().add(cbbudovy);
 		pane.getChildren().add(Vylepsit);
+		pane.getChildren().add(vypis);
+		pane.getChildren().add(skrolVypis);
 		
 		Vylepsit.setOnAction(e -> {
 			Budova budova = cbbudovy.getValue();
-			budova.zvysUroven(Mesta[0]);
+			vypis.setText(budova.zvysUroven(Mesta[0]));
 		});
 		
 		

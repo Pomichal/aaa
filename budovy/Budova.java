@@ -9,15 +9,19 @@ public class Budova {
 		   setUroven(uroven);
 	   }   
 	
-	public void zvysUroven(Mesto mesto){
-		if(mesto.getSklad().getTovar(0)>=20 && mesto.getSklad().getTovar(1)>=20 && mesto.getSklad().getTovar(2)>=20 && mesto.getSklad().getTovar(3)>=20){
+	public String zvysUroven(Mesto mesto){
+		if(uroven<4 && mesto.getSklad().getTovar(0)>=(5 + (20*uroven)) && mesto.getSklad().getTovar(1)>=(5 + (20*uroven)) && 
+				mesto.getSklad().getTovar(2)>=(5 + (20*uroven)) && mesto.getSklad().getTovar(3)>=(5 + (20*uroven))){
 		mesto.znizPeniaze(100);
 		for(int i=0; i<4;i++){
-			mesto.getSklad().znizTovar(i, 20);
+			mesto.getSklad().znizTovar(i, (5 + (20*uroven)));
 		}
 		   this.uroven++;
 		   mesto.upozorniSledovatelov();
+		   return "Budova vylepsena na uroven: " + uroven;
 		}
+		else if(uroven<4) return "nedostatok tovaru";
+		else return "budova ma maximalnu uroven";
 	   }
 		public int getUroven(){
 			return uroven;
