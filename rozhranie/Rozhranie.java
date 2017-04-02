@@ -15,24 +15,21 @@ public class Rozhranie extends Application{
 	private Button DrevovoTlacidlo = new Button("Drevovo");
 	private Button KamenovoTlacidlo = new Button("Kamenovo");
 	private Button MramorovoTlacidlo = new Button("Mramorovo");
-	
-	/*public void start(Stage hlavneOkno) {
-		hlavneOkno.setTitle("Semitas et Civitas");
-		
-		FlowPane pane = new FlowPane();
-		
-		pane.getChildren().add(BavlnovoTlacidlo);
-		
-		BavlnovoTlacidlo.setOnAction(e -> new OknoBavlnovo());
-
-		hlavneOkno.setScene(new Scene(pane, 400, 250));
-		hlavneOkno.show();
-	}*/
-	
 	private Button turn = new Button("Turn");
 	private Button vyprava = new Button("Poslat vypravu");
-	private TextArea vypis = new TextArea();
+	
+	private static TextArea vypis = new TextArea();
 	private ScrollPane skrolVypis = new ScrollPane(vypis);
+	
+	public static TextArea getVypis(){
+		return vypis;
+	}
+	
+	private Label[] Tovar1 ={new Label("Bavlna:"),new Label("Drevo:"),new Label("Kamen:"),new Label("Mramor:")};	
+	private Label[] Tovar2 ={new Label("Bavlna:"),new Label("Drevo:"),new Label("Kamen:"),new Label("Mramor:")};	
+	private Label[] Tovar3 ={new Label("Bavlna:"),new Label("Drevo:"),new Label("Kamen:"),new Label("Mramor:")};	
+	private Label[] Tovar4 ={new Label("Bavlna:"),new Label("Drevo:"),new Label("Kamen:"),new Label("Mramor:")};	
+	
 	private Label startOzn = new Label("Start");
 	private Label cielOzn = new Label("Ciel");
 	private Label typTovaruOzn = new Label("TypTovaru");	
@@ -52,18 +49,17 @@ public class Rozhranie extends Application{
 	
 	private SledovatelPenazi Peniaze;
 	private SledovatelKol Kolo;
+	private SledovatelTovaru[] Bav = new SledovatelTovaru[4];
+	private SledovatelTovaru[] Drev = new SledovatelTovaru[4];
+	private SledovatelTovaru[] Kam = new SledovatelTovaru[4];
+	private SledovatelTovaru[] Mram = new SledovatelTovaru[4];
 
 
-	@Override
 	public void start(Stage hlavneOkno) {
 		hlavneOkno.setTitle("Semitas et Civitas");
 		FlowPane pane = new FlowPane();
 		
 		pane.getChildren().add(turn);
-		pane.getChildren().add(BavlnovoTlacidlo);
-		pane.getChildren().add(DrevovoTlacidlo);
-		pane.getChildren().add(KamenovoTlacidlo);
-		pane.getChildren().add(MramorovoTlacidlo);
 
 		
 		Kolo = new SledovatelKol();
@@ -71,8 +67,45 @@ public class Rozhranie extends Application{
 		pane.getChildren().add(pocetkol);
 		Kolo.setPrefWidth(100);
 		pane.getChildren().add(Kolo);
-		
 		pane.getChildren().add(skrolVypis);
+		skrolVypis.setPrefHeight(100);
+
+		pane.getChildren().add(BavlnovoTlacidlo);
+		for(int i=0; i<4;i++){
+			Bav[i]=new SledovatelTovaru(Mesta[0],i);
+			Mesta[0].pridajSledovatela(Bav[i]);
+			pane.getChildren().add(Tovar1[i]);
+			pane.getChildren().add(Bav[i]);
+			Bav[i].setPrefWidth(55);
+		}
+		
+		pane.getChildren().add(DrevovoTlacidlo);
+		for(int i=0; i<4;i++){
+			Drev[i]=new SledovatelTovaru(Mesta[1],i);
+			Mesta[0].pridajSledovatela(Drev[i]);
+			pane.getChildren().add(Tovar2[i]);
+			pane.getChildren().add(Drev[i]);
+			Drev[i].setPrefWidth(55);
+		}
+
+		pane.getChildren().add(KamenovoTlacidlo);
+		for(int i=0; i<4;i++){
+			Kam[i]=new SledovatelTovaru(Mesta[2],i);
+			Mesta[0].pridajSledovatela(Kam[i]);
+			pane.getChildren().add(Tovar3[i]);
+			pane.getChildren().add(Kam[i]);
+			Kam[i].setPrefWidth(55);
+		}
+		
+
+		pane.getChildren().add(MramorovoTlacidlo);
+		for(int i=0; i<4;i++){
+			Mram[i]=new SledovatelTovaru(Mesta[3],i);
+			Mesta[0].pridajSledovatela(Mram[i]);
+			pane.getChildren().add(Tovar4[i]);
+			pane.getChildren().add(Mram[i]);
+			Mram[i].setPrefWidth(60);
+		}
 		pane.getChildren().add(startOzn);
 		pane.getChildren().add(cbstart);
 		pane.getChildren().add(cielOzn);
@@ -93,7 +126,7 @@ public class Rozhranie extends Application{
 			turn.setText("Nove kolo");
 			Turn.zvysKolo();
 			vypis.appendText(Turn.Kolo(Mesta)
-							+ Turn.vypis(Mesta));
+							+ Turn.vypisVypravy(Mesta));
 			}
 		);
 		
@@ -103,11 +136,10 @@ public class Rozhranie extends Application{
 			int typ=cbtyp.getValue();
 			int mnoz =Integer.parseInt(mnozstvo.getText());
 			int zamer=cbzamer.getValue();
-			vypis.clear();
-			if(zamer==2)vypis.appendText(start.getObchod().vyslatVypravu(start, ciel, typ, mnoz) + "\n");
-			else
-			vypis.appendText(start.getStajna().vyslatVypravu(start, ciel, typ, mnoz, zamer) + "\n");
-			vypis.appendText(Turn.vypis(Mesta));
+			//if(zamer==2)vypis.appendText(start.getObchod().vyslatVypravu(start, ciel, typ, mnoz) + "\n");
+			//else
+			//vypis.appendText(start.getStajna().vyslatVypravu(start, ciel, typ, mnoz, zamer) + "\n");
+			new OknoVyprava(start,ciel,typ,mnoz,zamer);
 		});
 		
 		BavlnovoTlacidlo.setOnAction(e -> {
@@ -129,12 +161,13 @@ public class Rozhranie extends Application{
 		Mesta[0].upozorniSledovatelov();
 		});
 		
+		
 		Peniaze = new SledovatelPenazi(Mesta[0]);
 		Mesta[0].pridajSledovatela(Peniaze);;
 		pane.getChildren().add(bohatstvo);
 		pane.getChildren().add(Peniaze);
 		
-		hlavneOkno.setScene(new Scene(pane, 500, 300));
+		hlavneOkno.setScene(new Scene(pane, 500, 400));
 		hlavneOkno.show();
 	}
 	public static void main(String[] args) {

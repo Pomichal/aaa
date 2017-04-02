@@ -15,8 +15,8 @@ public class Sklad extends Budova {
 	public void zvysTovar(int cislo, int mnozstvo){
 		this.mnozstvo[cislo]+=mnozstvo;
 	}
-	public void znizTovar(int cislo, int mnozstvo){
-		this.mnozstvo[cislo]-=mnozstvo;
+	public void znizTovar(int typ, int mnozstvo){
+		this.mnozstvo[typ]-=mnozstvo;
 	}
 	public int getTovar(int cislo){
 		return mnozstvo[cislo];
@@ -39,6 +39,17 @@ public class Sklad extends Budova {
 		for(int mnoz:mnozstvo)
 			obsadenost+=mnoz;
 		return 100*this.uroven-obsadenost;		
+	}
+	public void vyhoditTovar(){
+		int typ=(int) Math.random()*4;
+		while(this.getVolneMiesto()<0){
+			if(this.getTovar(typ)>5)
+				this.znizTovar(typ,5);
+				else {
+					if(typ>=3) typ--;
+					else typ++;
+					}
+		}
 	}
 	public int getKapacita(){
 		return 100*uroven;

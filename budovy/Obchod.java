@@ -18,7 +18,9 @@ transient private List<Vyprava> vypravy = new LinkedList<>();
 		return uroven;
 	}
 	
-	
+	public List<Vyprava> getVypravy(Mesto mesto){
+		return mesto.getObchod().vypravy;
+	}
 	public void pridajVypravu(Vyprava vyp) {
 		vypravy.add(vyp);
 	}
@@ -38,9 +40,9 @@ transient private List<Vyprava> vypravy = new LinkedList<>();
 			 						Vyprava vyp = new Vyprava(start,ciel, typ, mnozstvo,0,0);
 			 						vypravy.add(vyp);
 			 						vyp.setPrichod(dialka);
-			 						start.znizPeniaze(mnozstvo*dialka);
+			 						start.znizPeniaze(mnozstvo*dialka*start.getSklad().getCena(typ));
 			 						start.upozorniSledovatelov();
-			 						return "obchodna vyprava vytvorena, Cena(zlato na jednotku/kolo): "+ mnozstvo*dialka;
+			 						return "obchodna vyprava vytvorena, Cena(zlato na jednotku/kolo): "+ mnozstvo*dialka*start.getSklad().getCena(typ);
 			 						}
 			 						else {
 			 						 return ("Nemas volny obchodny karavan!");
@@ -61,7 +63,6 @@ transient private List<Vyprava> vypravy = new LinkedList<>();
 				odoberVypravu(vypravy.indexOf(vyprava));
 				i--;
 				}
-	      if(vyprava.getPrichod()!=0) sprava=sprava+ "obchodna vyprava dorazi o " + vyprava.getPrichod() + " kol(o)\n";
 		}
 		mesto.upozorniSledovatelov();
 		return sprava;

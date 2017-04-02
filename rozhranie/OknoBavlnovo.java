@@ -40,7 +40,7 @@ public class OknoBavlnovo extends Stage {
 		
 		Vylepsit.setOnAction(e -> {
 			Budova budova = cbbudovy.getValue();
-			vypis.setText(budova.zvysUroven(Mesta[0]));
+			vypis.appendText(budova.zvysUroven(Mesta[0]));
 		});
 		
 		

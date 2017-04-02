@@ -6,7 +6,7 @@ public class Turn {
 	
 private static int kolo=0;
 	
-	public static String vypis(Mesto[] Mesta){ //vypis tovaru pre kontrolu
+	/*public static String vypis(Mesto[] Mesta){ //vypis tovaru pre kontrolu
 		int i,j;
 		String[] mena={"Bavlnovo", "Drevovo", "Kamenovo", "Mramorovo"};
 		String sprava="";
@@ -17,7 +17,26 @@ private static int kolo=0;
 				sprava= sprava + "\n";
 		}
 		return sprava;
+	}*/
+	
+	public static String vypisVypravy(Mesto[] mesta){
+		int i;
+		String sprava="";
+		for(i=0;i<4;i++){
+			for(Vyprava vyprava:mesta[i].getStajna().getVypravy(mesta[i]))
+				sprava=sprava + "Start: " + vyprava.getStart() + ", Ciel: " + vyprava.getCiel()
+						+ ", typ tovaru: " + vyprava.getTyp() + ", mnozstvo: " + vyprava.getMnozstvo() 
+						+ "prichod o: " + vyprava.getPrichod() + "kol(o)\n";
+		}
+		for(i=0;i<4;i++){
+			for(Vyprava vyprava:mesta[i].getObchod().getVypravy(mesta[i]))
+				sprava=sprava + "(Obchodny karavan) Start: " + vyprava.getStart() + ", Ciel: " + vyprava.getCiel()
+						+ ", typ tovaru: " + vyprava.getTyp() + ", mnozstvo: " + vyprava.getMnozstvo() 
+						+ "prichod o: " + vyprava.getPrichod() + "kol(o)\n";
+		}
+		return sprava;
 	}
+	
 	public static int getKolo(){
 		return kolo;
 	}
@@ -41,7 +60,7 @@ private static int kolo=0;
 	
 	public static Mesto[] Nastav(){  //nastavenie hodnot na zaciatok hry, TREBA OPRAVIT
 		Mesto[] Mesta = new Mesto[4];         //pocet miest
-		Mesta[0]=new Bavlnovo(true,0,20,20,20,20);
+		Mesta[0]=new Bavlnovo(true,0,20,20,20,200);
 		Mesta[1]=new Drevovo(true,1,20,20,20,20);
 		Mesta[2]=new Kamenovo(false,2,20,20,20,20);
 		Mesta[3]=new Mramorovo(false,3,20,20,20,20);

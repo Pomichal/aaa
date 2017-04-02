@@ -15,6 +15,9 @@ public class Stajna extends Budova {
 		return uroven;
 	}
 	
+	public List<Vyprava> getVypravy(Mesto mesto){
+		return mesto.getStajna().vypravy;
+	}
 	
 	public void pridajVypravu(Vyprava vyp) {
 		vypravy.add(vyp);
@@ -57,7 +60,7 @@ public class Stajna extends Budova {
 		for(i=0;i<vypravy.size();i++){
 			Vyprava vyprava=vypravy.get(i);
 	    	if(vyprava.getPrichod()==0 && vyprava.getMnozstvo()!=0){
-				sprava = sprava + "vyprava dorazila, predany tovar: " + vyprava.getMnozstvo() + " kus(ov)\n";
+				sprava = sprava + "vyprava (" + vypravy.indexOf(vyprava) + ") dorazila, predany tovar: " + vyprava.getMnozstvo() + " kus(ov)\n";
 				if(vyprava.getZamer()==0){
 				vyprava.setZdroje(vyprava.getCiel().getSklad().getCena(vyprava.getTyp())*vyprava.getMnozstvo());
 				vyprava.setMnozstvo(0);
@@ -67,12 +70,11 @@ public class Stajna extends Budova {
 				}
 				vyprava.setPrichod((vyprava.getCiel().getVzdialenost(vyprava.getStart()))/(this.uroven));
 	    	} else if(vyprava.getPrichod()==0 && vyprava.getMnozstvo()==0){
-				sprava=sprava + "vyprava dorazila, prijem: " + vyprava.getZdroje() + " zlatych\n";
+				sprava=sprava + "vyprava sa vratila, prijem: " + vyprava.getZdroje() + " zlatych\n";
 				mesto.zvysPeniaze(vyprava.getZdroje());
 				odoberVypravu(vypravy.indexOf(vyprava));
 				i--;
-			}else if(vyprava.getMnozstvo()!=0) sprava=sprava+ "vyprava dorazi o " + vyprava.getPrichod() + " kol(o)\n";
-			else sprava= sprava + "vyprava sa vrati o " + vyprava.getPrichod() + " kol(o)\n";
+			}
 		}
 		mesto.upozorniSledovatelov();
 		return sprava;

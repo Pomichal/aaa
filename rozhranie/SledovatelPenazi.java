@@ -15,7 +15,6 @@ public class SledovatelPenazi extends TextField implements Sledovatel{
 		this.mesto=mesto;
 	}
 	
-	@Override
 	public void upozorni() {
 		peniaze=mesto.getPeniaze();
 		Platform.runLater(() -> setText(Integer.toString(peniaze)));

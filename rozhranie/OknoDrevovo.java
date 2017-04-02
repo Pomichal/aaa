@@ -6,6 +6,8 @@ import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import mesta.*;
@@ -14,6 +16,9 @@ public class OknoDrevovo extends Stage{
 	
 	private Button Vylepsit = new Button("Vylepsit");
 	private Label bohatstvo = new Label("Peniaze:");
+	private TextArea vypis = new TextArea();
+	private ScrollPane skrolVypis = new ScrollPane(vypis);
+
 	
 	public OknoDrevovo(Mesto[] Mesta) {
 		super();
@@ -21,19 +26,21 @@ public class OknoDrevovo extends Stage{
 		
 		final SledovatelPenazi Peniaze;
 		final ComboBox<Budova> cbbudovy = new ComboBox<Budova>(FXCollections.observableArrayList(Mesta[1].getSklad(),Mesta[1].getStajna(),Mesta[1].getTovaren()));
-		Mesta[0].upozorniSledovatelov();
+		Mesta[1].upozorniSledovatelov();
 		FlowPane pane = new FlowPane();
 		
-		Peniaze = new SledovatelPenazi(Mesta[0]);
-		Mesta[0].pridajSledovatela(Peniaze);
+		Peniaze = new SledovatelPenazi(Mesta[1]);
+		Mesta[1].pridajSledovatela(Peniaze);
 		pane.getChildren().add(bohatstvo);
 		pane.getChildren().add(Peniaze);
 		pane.getChildren().add(cbbudovy);
 		pane.getChildren().add(Vylepsit);
+		pane.getChildren().add(vypis);
+		pane.getChildren().add(skrolVypis);
 		
 		Vylepsit.setOnAction(e -> {
 			Budova budova = cbbudovy.getValue();
-			budova.zvysUroven(Mesta[1]);
+			vypis.appendText(budova.zvysUroven(Mesta[1]));
 		});
 		
 		

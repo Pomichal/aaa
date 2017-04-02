@@ -2,7 +2,7 @@ package budovy;
 
 import mesta.Mesto;
 
-public class Budova {
+public abstract class Budova {
 	protected int uroven;
 	
 	 public Budova(int uroven){
@@ -10,7 +10,7 @@ public class Budova {
 	   }   
 	
 	public String zvysUroven(Mesto mesto){
-		if(uroven<4 && mesto.getSklad().getTovar(0)>=(5 + (20*uroven)) && mesto.getSklad().getTovar(1)>=(5 + (20*uroven)) && 
+		if(uroven<3 && mesto.getSklad().getTovar(0)>=(5 + (20*uroven)) && mesto.getSklad().getTovar(1)>=(5 + (20*uroven)) && 
 				mesto.getSklad().getTovar(2)>=(5 + (20*uroven)) && mesto.getSklad().getTovar(3)>=(5 + (20*uroven))){
 		mesto.znizPeniaze(100);
 		for(int i=0; i<4;i++){
@@ -18,10 +18,10 @@ public class Budova {
 		}
 		   this.uroven++;
 		   mesto.upozorniSledovatelov();
-		   return "Budova vylepsena na uroven: " + uroven;
+		   return "Budova vylepsena na uroven: " + uroven + "\n";
 		}
-		else if(uroven<4) return "nedostatok tovaru";
-		else return "budova ma maximalnu uroven";
+		else if(uroven<4) return "nedostatok tovaru\n";
+		else return "budova ma maximalnu uroven\n";
 	   }
 		public int getUroven(){
 			return uroven;
