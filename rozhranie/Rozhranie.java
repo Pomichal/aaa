@@ -1,7 +1,10 @@
 package rozhranie;
 
 import mesta.*;
-import hra.Turn;
+
+import java.util.LinkedList;
+
+import hra.*;
 import javafx.collections.FXCollections;
 import javafx.stage.Stage;
 import javafx.application.*;
@@ -40,7 +43,8 @@ public class Rozhranie extends Application{
 	private TextField mnozstvo = new TextField();
 	
 
-	Mesto[] Mesta= Turn.Nastav();
+	
+	transient private LinkedList<Mesto> Mesta = new LinkedList<>(Turn.Nastav());
 	
 	final ComboBox<Mesto> cbstart = new ComboBox<Mesto>(FXCollections.observableArrayList(Mesta));
 	final ComboBox<Mesto> cbciel = new ComboBox<Mesto>(FXCollections.observableArrayList(Mesta));
@@ -63,7 +67,7 @@ public class Rozhranie extends Application{
 
 		
 		Kolo = new SledovatelKol();
-		Mesta[0].pridajSledovatela(Kolo);;
+		Mesta.get(0).pridajSledovatela(Kolo);
 		pane.getChildren().add(pocetkol);
 		Kolo.setPrefWidth(100);
 		pane.getChildren().add(Kolo);
@@ -72,8 +76,8 @@ public class Rozhranie extends Application{
 
 		pane.getChildren().add(BavlnovoTlacidlo);
 		for(int i=0; i<4;i++){
-			Bav[i]=new SledovatelTovaru(Mesta[0],i);
-			Mesta[0].pridajSledovatela(Bav[i]);
+			Bav[i]=new SledovatelTovaru(Mesta.get(0),i);
+			Mesta.get(0).pridajSledovatela(Bav[i]);
 			pane.getChildren().add(Tovar1[i]);
 			pane.getChildren().add(Bav[i]);
 			Bav[i].setPrefWidth(55);
@@ -81,8 +85,8 @@ public class Rozhranie extends Application{
 		
 		pane.getChildren().add(DrevovoTlacidlo);
 		for(int i=0; i<4;i++){
-			Drev[i]=new SledovatelTovaru(Mesta[1],i);
-			Mesta[0].pridajSledovatela(Drev[i]);
+			Drev[i]=new SledovatelTovaru(Mesta.get(1),i);
+			Mesta.get(0).pridajSledovatela(Drev[i]);
 			pane.getChildren().add(Tovar2[i]);
 			pane.getChildren().add(Drev[i]);
 			Drev[i].setPrefWidth(55);
@@ -90,8 +94,8 @@ public class Rozhranie extends Application{
 
 		pane.getChildren().add(KamenovoTlacidlo);
 		for(int i=0; i<4;i++){
-			Kam[i]=new SledovatelTovaru(Mesta[2],i);
-			Mesta[0].pridajSledovatela(Kam[i]);
+			Kam[i]=new SledovatelTovaru(Mesta.get(2),i);
+			Mesta.get(0).pridajSledovatela(Kam[i]);
 			pane.getChildren().add(Tovar3[i]);
 			pane.getChildren().add(Kam[i]);
 			Kam[i].setPrefWidth(55);
@@ -100,8 +104,8 @@ public class Rozhranie extends Application{
 
 		pane.getChildren().add(MramorovoTlacidlo);
 		for(int i=0; i<4;i++){
-			Mram[i]=new SledovatelTovaru(Mesta[3],i);
-			Mesta[0].pridajSledovatela(Mram[i]);
+			Mram[i]=new SledovatelTovaru(Mesta.get(3),i);
+			Mesta.get(0).pridajSledovatela(Mram[i]);
 			pane.getChildren().add(Tovar4[i]);
 			pane.getChildren().add(Mram[i]);
 			Mram[i].setPrefWidth(60);
@@ -144,26 +148,27 @@ public class Rozhranie extends Application{
 		
 		BavlnovoTlacidlo.setOnAction(e -> {
 		new OknoBavlnovo(Mesta);
-		Mesta[0].upozorniSledovatelov();
+		Mesta.get(0).upozorniSledovatelov();
 		});
 		
 		DrevovoTlacidlo.setOnAction(e -> {
 		new OknoDrevovo(Mesta);
-		Mesta[0].upozorniSledovatelov();
+		Mesta.get(0).upozorniSledovatelov();
 		});
 		
 		KamenovoTlacidlo.setOnAction(e -> {
-		new OknoKamenovo(Mesta);Mesta[0].upozorniSledovatelov();
+		new OknoKamenovo(Mesta);
+		Mesta.get(0).upozorniSledovatelov();
 		});
 		
 		MramorovoTlacidlo.setOnAction(e -> {
 		new OknoMramorovo(Mesta);
-		Mesta[0].upozorniSledovatelov();
+		Mesta.get(0).upozorniSledovatelov();
 		});
 		
 		
-		Peniaze = new SledovatelPenazi(Mesta[0]);
-		Mesta[0].pridajSledovatela(Peniaze);;
+		Peniaze = new SledovatelPenazi(Mesta.get(0));
+		Mesta.get(0).pridajSledovatela(Peniaze);;
 		pane.getChildren().add(bohatstvo);
 		pane.getChildren().add(Peniaze);
 		

@@ -11,7 +11,8 @@ public class Mesto implements ZakladMesta{
 	private static int peniaze=500;  //zdroje hraca
 	private int poloha;  //"poloha miesta, pre urcovanie vzdialenosti (B:0,D:1,K:2,M:3)
 	protected int[] vzdialenost={0,0,0,0}; //vzdialenost do ostatnych miest (v kolach)
-	protected Tovaren tovaren = new Tovaren(1);
+	protected int[] okolie = {0,0,0,0}; //okolie mesta, urcuje pruduktivitu tovarni
+	protected Tovaren tovaren = new Ovciar(1);
 	protected Stajna stajna = new Stajna(0);
 	protected Sklad sklad = new Sklad(1);
 	protected Obchod obchod = new Obchod(1);
@@ -84,6 +85,9 @@ public class Mesto implements ZakladMesta{
 			this.vzdialenost[i]=a[i];
 		}
 	}
+	public int getOkolie(int cislo){
+		return okolie[cislo];
+	}
 	public int getVzdialenost(Mesto ciel){
 		return this.vzdialenost[ciel.getPoloha()];
 	}
@@ -95,9 +99,5 @@ public class Mesto implements ZakladMesta{
 	}
 	public void znizPeniaze(int peniaze){
 		Mesto.peniaze-=peniaze;
-	}
-	
-	public void vyroba(){ //pre kazdy tip mesta specificke
-		
 	}
 }

@@ -1,5 +1,7 @@
 package rozhranie;
 
+import java.util.List;
+
 import budovy.*;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
@@ -20,17 +22,17 @@ public class OknoBavlnovo extends Stage {
 	private ScrollPane skrolVypis = new ScrollPane(vypis);
 
 	
-	public OknoBavlnovo(Mesto[] Mesta) {
+	public OknoBavlnovo(List<Mesto> mesta) {
 		super();
 		setTitle("Bavlnovo");
 		
 		final SledovatelPenazi Peniaze;
-		final ComboBox<Budova> cbbudovy = new ComboBox<Budova>(FXCollections.observableArrayList(Mesta[0].getSklad(),Mesta[0].getStajna(),Mesta[0].getTovaren()));
-		Mesta[0].upozorniSledovatelov();
+		final ComboBox<Budova> cbbudovy = new ComboBox<Budova>(FXCollections.observableArrayList(mesta.get(0).getSklad(),mesta.get(0).getStajna(),mesta.get(0).getTovaren()));
+		mesta.get(0).upozorniSledovatelov();
 		FlowPane pane = new FlowPane();
 		
-		Peniaze = new SledovatelPenazi(Mesta[0]);
-		Mesta[0].pridajSledovatela(Peniaze);
+		Peniaze = new SledovatelPenazi(mesta.get(0));
+		mesta.get(0).pridajSledovatela(Peniaze);
 		pane.getChildren().add(bohatstvo);
 		pane.getChildren().add(Peniaze);
 		pane.getChildren().add(cbbudovy);
@@ -40,7 +42,7 @@ public class OknoBavlnovo extends Stage {
 		
 		Vylepsit.setOnAction(e -> {
 			Budova budova = cbbudovy.getValue();
-			vypis.appendText(budova.zvysUroven(Mesta[0]));
+			vypis.appendText(budova.zvysUroven(mesta.get(0)));
 		});
 		
 		

@@ -4,11 +4,12 @@ package mesta;
 
 public class Bavlnovo extends Mesto {
 	
+	
 	public Bavlnovo(boolean moje,int poloha, int b, int d, int k, int m){
 		super(moje,poloha,b,d,k,m);
-	}
-	public void vyroba(){ //pre kazdy tip mesta specificke
-		if(this.tovaren!=null)
-			this.tovaren.vyroba(this);
+		okolie[0]=70;
+		okolie[1]=15;
+		okolie[2]=10;
+		okolie[3]=5;
 	}
 }

@@ -2,7 +2,7 @@ package budovy;
 
 import mesta.*;
 
-public class Tovaren extends Budova {
+public abstract class Tovaren extends Budova {
 	public Tovaren(int uroven){
 		   super(uroven);
 	   }  
@@ -13,27 +13,8 @@ public class Tovaren extends Budova {
 	}
 	
 		//Zabezpeci vyrobu v mestach podla typu
-	    public void vyroba(Mesto mesto){
-	    	
-		}
-	    public void vyroba(Bavlnovo mesto){
-	    	if(mesto.getMoje() && mesto.getSklad().getVolneMiesto()>=uroven)
-	    		mesto.getSklad().zvysTovar(0, uroven);
-	    	else mesto.getSklad().vyhoditTovar();
-	    }
-	    public void vyroba(Drevovo mesto){
-	    	if(mesto.getMoje() && mesto.getSklad().getVolneMiesto()>=uroven)
-	    		mesto.getSklad().zvysTovar(1, uroven);
-			else mesto.getSklad().vyhoditTovar();
-	    }
-	    public void vyroba(Kamenovo mesto){
-	    	if(mesto.getMoje() && mesto.getSklad().getVolneMiesto()>=uroven)
-	    		mesto.getSklad().zvysTovar(2, uroven);
-			else mesto.getSklad().vyhoditTovar();
-	    }
-	    public void vyroba(Mramorovo mesto){
-	    	if(mesto.getMoje() && mesto.getSklad().getVolneMiesto()>=uroven)
-	    		mesto.getSklad().zvysTovar(3, uroven);
-			else mesto.getSklad().vyhoditTovar();
-	    }
+	    public abstract void vyroba(Bavlnovo mesto);
+	    public abstract void vyroba(Drevovo mesto);
+	    public abstract void vyroba(Kamenovo mesto);
+	    public abstract void vyroba(Mramorovo mesto);
 }
