@@ -147,22 +147,22 @@ public class Rozhranie extends Application{
 		});
 		
 		BavlnovoTlacidlo.setOnAction(e -> {
-		new OknoBavlnovo(Mesta);
+		new OknoMesto(Mesta,0);
 		Mesta.get(0).upozorniSledovatelov();
 		});
 		
 		DrevovoTlacidlo.setOnAction(e -> {
-		new OknoDrevovo(Mesta);
+		new OknoMesto(Mesta,1);
 		Mesta.get(0).upozorniSledovatelov();
 		});
 		
 		KamenovoTlacidlo.setOnAction(e -> {
-		new OknoKamenovo(Mesta);
+		new OknoMesto(Mesta,2);
 		Mesta.get(0).upozorniSledovatelov();
 		});
 		
 		MramorovoTlacidlo.setOnAction(e -> {
-		new OknoMramorovo(Mesta);
+		new OknoMesto(Mesta,3);
 		Mesta.get(0).upozorniSledovatelov();
 		});
 		

@@ -1,8 +1,10 @@
 package hra;
 
+//import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import budovy.*;
 import mesta.*;
 
 public class Turn {
@@ -53,7 +55,9 @@ private static int kolo=0;
 		for(i=0;i<4; i++){
 			sprava= sprava + mesta.get(i).getObchod().overPrichod(mesta.get(i));
 			if(mesta.get(i).getMoje()){
-			mesta.get(i).getTovaren().vyroba();
+			//mesta.get(i).getTovaren().vyroba(mesta.get(i));
+				for(Tovaren tov: mesta.get(i).getTovaren())
+					mesta.get(i).vyroba(tov);
 			sprava= sprava + mesta.get(i).getStajna().overPrichod(mesta.get(i));
 			}
 		}
@@ -61,15 +65,15 @@ private static int kolo=0;
 		return sprava;
 	}
 	
-	public static LinkedList<Mesto> Nastav(){  //nastavenie hodnot na zaciatok hry, TREBA OPRAVIT
-		LinkedList<Mesto> Mesta = new LinkedList<Mesto>();         //pocet miest
-		Mesta.add(new Bavlnovo(true,0,20,20,20,200));
+	public static List<Mesto> Nastav(){  //nastavenie hodnot na zaciatok hry, TREBA OPRAVIT
+		List<Mesto> Mesta=new LinkedList<Mesto>();         //pocet miest
+		Mesta.add(new Bavlnovo(true,0,100,100,100,100));
 		Mesta.add(new Drevovo(true,1,20,20,20,20));
 		Mesta.add(new Kamenovo(false,2,20,20,20,20));
 		Mesta.add(new Mramorovo(false,3,20,20,20,20));
-		Mesta.get(0).postavBudovu(0);
+		Mesta.get(0).vylepsiTovaren(0);	
 		Mesta.get(0).postavBudovu(1);
-		Mesta.get(1).postavBudovu(0);
+		Mesta.get(1).vylepsiTovaren(1);
 		Mesta.get(0).getSklad().setCeny(3,5,10,15);
 		Mesta.get(1).getSklad().setCeny(5, 3, 10, 15);
 		Mesta.get(2).getSklad().setCeny(15,5,3,10);

@@ -1,6 +1,6 @@
 package mesta;
 
-
+import budovy.Tovaren;
 
 public class Bavlnovo extends Mesto {
 	
@@ -11,5 +11,8 @@ public class Bavlnovo extends Mesto {
 		okolie[1]=15;
 		okolie[2]=10;
 		okolie[3]=5;
+	}
+	public void vyroba(Tovaren tovaren){  //pre kazdy typ mesta specificke
+		tovaren.vyroba(this);
 	}
 }

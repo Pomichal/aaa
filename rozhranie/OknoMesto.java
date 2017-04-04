@@ -2,7 +2,7 @@ package rozhranie;
 
 import java.util.List;
 
-import budovy.*;
+import budovy.Budova;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,25 +14,28 @@ import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import mesta.Mesto;
 
-public class OknoBavlnovo extends Stage {
-
-	private Button Vylepsit = new Button("Vylepsit");
+public class OknoMesto extends Stage{
+	private Button Vylepsit = new Button("Postavit/Vylepsit");
 	private Label bohatstvo = new Label("Peniaze:");
-	private TextArea vypis = new TextArea();
+	private static TextArea vypis = new TextArea();
 	private ScrollPane skrolVypis = new ScrollPane(vypis);
+	
+	public TextArea getVypis(){
+		return vypis;
+	}
 
 	
-	public OknoBavlnovo(List<Mesto> mesta) {
+	public OknoMesto(List<Mesto> mesta,int index) {
 		super();
-		setTitle("Bavlnovo");
+		setTitle(mesta.get(index).toString());
 		
 		final SledovatelPenazi Peniaze;
-		final ComboBox<Budova> cbbudovy = new ComboBox<Budova>(FXCollections.observableArrayList(mesta.get(0).getSklad(),mesta.get(0).getStajna(),mesta.get(0).getTovaren()));
-		mesta.get(0).upozorniSledovatelov();
+		final ComboBox<Budova> cbbudovy = new ComboBox<Budova>(FXCollections.observableArrayList(mesta.get(index).getBudovy()));
+		mesta.get(index).upozorniSledovatelov();
 		FlowPane pane = new FlowPane();
 		
-		Peniaze = new SledovatelPenazi(mesta.get(0));
-		mesta.get(0).pridajSledovatela(Peniaze);
+		Peniaze = new SledovatelPenazi(mesta.get(index));
+		mesta.get(index).pridajSledovatela(Peniaze);
 		pane.getChildren().add(bohatstvo);
 		pane.getChildren().add(Peniaze);
 		pane.getChildren().add(cbbudovy);
@@ -42,7 +45,10 @@ public class OknoBavlnovo extends Stage {
 		
 		Vylepsit.setOnAction(e -> {
 			Budova budova = cbbudovy.getValue();
-			vypis.appendText(budova.zvysUroven(mesta.get(0)));
+			if(budova.getUroven()>=1)
+			new OknoVylepsenie(mesta.get(index),budova,this);
+			else
+				new OknoPostav(mesta.get(index),budova,this);
 		});
 		
 		
@@ -50,3 +56,4 @@ public class OknoBavlnovo extends Stage {
 		show();
 	}
 }
+

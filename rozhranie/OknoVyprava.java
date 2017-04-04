@@ -35,13 +35,14 @@ public class OknoVyprava extends Stage{
 		vypis.appendText("Poslat vypravu?\nz: " +
 						 start.toString() + "\ndo: " +
 						 ciel.toString() + "\ntyp tovaru: " +
-						 typ + "\nmnozstvo: " + mnoz + "\n");
+						 typ + "\nmnozstvo: " + mnoz + 
+						 "\nocakavany zisk:" + ciel.getSklad().getCena(typ)*mnoz + "\n");
 		switch(zamer){
-		case 0 : vypis.appendText("trvanie cesty: " + start.getVzdialenost(ciel)/start.getStajna().getUroven() +
+		case 0 : vypis.appendText("trvanie cesty: " + (start.getVzdialenost(ciel)/start.getStajna().getUroven()) +
 									"\nzamer: predaj tovaru\n" +
 									"cena: " + mnoz*start.getVzdialenost(ciel)*(4-start.getStajna().getUroven()));
 				break;
-		case 1 : vypis.appendText("trvanie cesty: " + start.getVzdialenost(ciel)/start.getStajna().getUroven() +
+		case 1 : vypis.appendText("trvanie cesty: " + (start.getVzdialenost(ciel)/start.getStajna().getUroven()) +
 									"\nzamer: presun tovaru\n" +
 									"cena: " + mnoz*start.getVzdialenost(ciel)*(4-start.getStajna().getUroven()));
 				break;

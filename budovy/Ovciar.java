@@ -11,27 +11,40 @@ public class Ovciar extends Tovaren {
 	public Ovciar(int uroven) {
 		super(uroven);
 	}
-	
 	public void vyroba(Bavlnovo mesto) {
-		mesto.getSklad().zvysTovar(0, mesto.getOkolie(0));
-		udrzba=30;
+		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(0) && mesto.getPeniaze()>30){
+		mesto.getSklad().zvysTovar(0, mesto.getOkolie(0)*this.uroven);
+		this.udrzba=30;
+		mesto.znizPeniaze(udrzba);
+		}
+		else mesto.getSklad().vyhoditTovar();
 	}
 
 	public void vyroba(Drevovo mesto) {
-		mesto.getSklad().zvysTovar(0, mesto.getOkolie(0));	
-		udrzba=50;
-	}
+		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(0) && mesto.getPeniaze()>50){
+			mesto.getSklad().zvysTovar(0, mesto.getOkolie(0)*this.uroven);
+			this.udrzba=50;
+			mesto.znizPeniaze(udrzba);
+			}
+			else mesto.getSklad().vyhoditTovar();
+		}
 
-	@Override
 	public void vyroba(Kamenovo mesto) {
-		mesto.getSklad().zvysTovar(0, mesto.getOkolie(0));
-		udrzba=50;
-	}
+		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(0) && mesto.getPeniaze()>50){
+			mesto.getSklad().zvysTovar(0, mesto.getOkolie(0)*this.uroven);
+			this.udrzba=50;
+			mesto.znizPeniaze(udrzba);
+			}
+			else mesto.getSklad().vyhoditTovar();
+		}
 
-	@Override
 	public void vyroba(Mramorovo mesto) {
-		mesto.getSklad().zvysTovar(0, mesto.getOkolie(0));
-		udrzba=60;
-	}
+		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(0) && mesto.getPeniaze()>60){
+			mesto.getSklad().zvysTovar(0, mesto.getOkolie(0)*this.uroven);
+			udrzba=60;
+			mesto.znizPeniaze(udrzba);
+			}
+			else mesto.getSklad().vyhoditTovar();
+		}
 
 }

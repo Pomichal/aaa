@@ -38,7 +38,7 @@ public class Sklad extends Budova {
 		int obsadenost=0;
 		for(int mnoz:mnozstvo)
 			obsadenost+=mnoz;
-		return 100*this.uroven-obsadenost;		
+		return 1000*this.uroven-obsadenost;		
 	}
 	public void vyhoditTovar(){
 		int typ=(int) Math.random()*4;
@@ -52,6 +52,6 @@ public class Sklad extends Budova {
 		}
 	}
 	public int getKapacita(){
-		return 100*uroven;
+		return 1000*uroven;
 	}
 }

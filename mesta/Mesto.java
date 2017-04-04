@@ -1,6 +1,7 @@
 package mesta;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import budovy.*;
@@ -12,10 +13,10 @@ public class Mesto implements ZakladMesta{
 	private int poloha;  //"poloha miesta, pre urcovanie vzdialenosti (B:0,D:1,K:2,M:3)
 	protected int[] vzdialenost={0,0,0,0}; //vzdialenost do ostatnych miest (v kolach)
 	protected int[] okolie = {0,0,0,0}; //okolie mesta, urcuje pruduktivitu tovarni
-	protected Tovaren tovaren = new Ovciar(1);
-	protected Stajna stajna = new Stajna(0);
-	protected Sklad sklad = new Sklad(1);
-	protected Obchod obchod = new Obchod(1);
+	private  LinkedList<Tovaren> tovarne = new LinkedList<>();
+	private Stajna stajna;
+	private Sklad sklad;
+	private Obchod obchod;
 	
 	transient private static List<Sledovatel> sledovatelia = new ArrayList<>();
 
@@ -35,24 +36,38 @@ public class Mesto implements ZakladMesta{
 		this.moje=moje;
 		this.poloha=poloha;
 		int[] a={b,d,k,m};
+		stajna = new Stajna(0);
+		sklad= new Sklad(1);
+		obchod = new Obchod(1);
+		tovarne.add(new Ovciar(0));
+		tovarne.add(new Drevaren(0));
+		tovarne.add(new Kamenolom(0));
+		tovarne.add(new TovMramor(0));
 		for(i=0;i<4;i++){
 			this.sklad.setTovar(i,a[i]);
 		}
 	}
 	public void postavBudovu(int typ){
 		switch(typ){
-		case 0: this.tovaren.setUroven(1);;
-				break;
-		case 1: this.stajna.setUroven(1);
-				break;
-		case 2: this.sklad.setUroven(1);
-				break;
-		case 3: this.obchod.setUroven(1);
-				break;
+		case 1 : this.stajna.setUroven(1);
+					
+					break;
+		case 2 : this.sklad.setUroven(1);
 		}
+	}
+	public void vylepsiTovaren(int typ){
+		this.tovarne.get(typ).zvysUroven(this);
 	}
 	public void vylepsiBudovu(Budova budova){
 		budova.zvysUroven(this);
+	}
+	public List<Budova> getBudovy(){
+		List<Budova> budovy = new LinkedList<>();
+		budovy.add(this.stajna);
+		budovy.add(this.sklad);
+		for(Tovaren i: this.tovarne)
+			budovy.add(i);
+		return budovy;
 	}
 	public Stajna getStajna(){
 		return this.stajna;
@@ -60,8 +75,8 @@ public class Mesto implements ZakladMesta{
 	public Sklad getSklad(){
 		return this.sklad;
 	}
-	public Tovaren getTovaren(){
-		return this.tovaren;
+	public LinkedList<Tovaren> getTovaren(){
+		return this.tovarne;
 	}
 	public Obchod getObchod(){
 		return this.obchod;
@@ -99,5 +114,8 @@ public class Mesto implements ZakladMesta{
 	}
 	public void znizPeniaze(int peniaze){
 		Mesto.peniaze-=peniaze;
+	}
+	public void vyroba(Tovaren tovaren){  //pre kazdy typ mesta specificke
+
 	}
 }
