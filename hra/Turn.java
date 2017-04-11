@@ -16,8 +16,11 @@ private static int kolo=0;
 		String sprava="";
 		for(i=0;i<4;i++){  
 			sprava= sprava + mena[i] +": ";
-			for(j=0;j<4;j++)
+			for(j=0;j<4;j++){
 				sprava= sprava + Mesta.get(i).getSklad().getCena(j) + ", ";
+			/*if(Mesta.get(i).getCesta(j)!=null)							vypis ciest pre kontrolu
+				sprava =  sprava + Mesta.get(i).getCesta(j).toString() + "\n";*/
+			}
 				sprava= sprava + "\n";
 		}
 		return sprava;
@@ -77,7 +80,7 @@ private static int kolo=0;
 		Mesta.add(new Kamenovo(false,2,100,100,100,100));
 		Mesta.add(new Mramorovo(false,3,100,100,100,100));
 		Mesta.get(0).postavTovaren(0);	
-		Mesta.get(0).postavBudovu(1);
+		Mesta.get(0).getStajna().zvysUroven();
 		Mesta.get(1).postavTovaren(1);
 		Mesta.get(0).getSklad().setCeny(3,5,10,15);
 		Mesta.get(1).getSklad().setCeny(5, 3, 10, 15);

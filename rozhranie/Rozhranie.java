@@ -126,7 +126,7 @@ public class Rozhranie extends Application{
 		
 		turn.setText("Zacat hru");
 		
-		turn.setOnAction(e -> { // lambda výraz s odvodením typu z kontextu
+		turn.setOnAction(e -> { 
 			vypis.clear();
 			turn.setText("Nove kolo");
 			Turn.zvysKolo();
@@ -142,9 +142,6 @@ public class Rozhranie extends Application{
 			int typ=cbtyp.getValue();
 			int mnoz =Integer.parseInt(mnozstvo.getText());
 			int zamer=cbzamer.getValue();
-			//if(zamer==2)vypis.appendText(start.getObchod().vyslatVypravu(start, ciel, typ, mnoz) + "\n");
-			//else
-			//vypis.appendText(start.getStajna().vyslatVypravu(start, ciel, typ, mnoz, zamer) + "\n");
 			new OknoVyprava(start,ciel,typ,mnoz,zamer);
 			} catch (NullPointerException ex) {
 				Alert a = new Alert(AlertType.ERROR);

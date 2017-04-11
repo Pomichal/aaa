@@ -19,32 +19,7 @@ public class Mesto implements ZakladMesta{
 	private Obchod obchod;
 	private List<Cesta> cesty = new LinkedList<>(); //cesty do ostatnych miest
 	
-	
-	public class Cesta extends Budova{
-		Mesto start,ciel;
-		int dlzka;
-		public Cesta(int uroven){
-			super(uroven);
-		}
-		public Cesta(int uroven, Mesto start, Mesto ciel){
-			super(uroven);
-			this.start=start;
-			this.ciel=ciel;
-			dlzka=start.getVzdialenost(ciel.getPoloha());
-		}
-	}
-	
 	transient private static List<Sledovatel> sledovatelia = new ArrayList<>();
-
-	public void pridajSledovatela(Sledovatel sledovatelStavu) {
-		sledovatelia.add(sledovatelStavu);
-	}
-	
-	public void upozorniSledovatelov() {
-		for (Sledovatel s : sledovatelia)
-			s.upozorni();
-	}
-	
 	
 	public Mesto(boolean moje,int poloha, int b, int d, int k, int m){ //konstruktor
 		int i;
@@ -62,16 +37,17 @@ public class Mesto implements ZakladMesta{
 			this.sklad.setTovar(i,a[i]);
 		}
 	}
-	/*public Cesta setCesta(int uroven, Mesto start, Mesto ciel){
-		return new Cesta(uroven,start,ciel);
-	}*/
-	public void postavBudovu(int typ){
-		switch(typ){
-		case 1 : this.stajna.setUroven(1);
-					break;
-		case 2 : this.sklad.setUroven(1);
-		}
+	
+	//pre vzor Observer
+	public void pridajSledovatela(Sledovatel sledovatelStavu) {
+		sledovatelia.add(sledovatelStavu);
 	}
+	
+	public void upozorniSledovatelov() {
+		for (Sledovatel s : sledovatelia)
+			s.upozorni();
+	}
+	
 	public void postavTovaren(int typ){
 		this.tovarne.get(typ).setUroven(1);
 	}
@@ -88,6 +64,19 @@ public class Mesto implements ZakladMesta{
 		for(Tovaren i: this.tovarne)
 			budovy.add(i);
 		return budovy;
+	}
+	public String getBudova(){
+		String sprava="";
+		List<Budova> budovy = this.getBudovy();
+		sprava = sprava + this.obchod.toString() + ", uroven: " + this.obchod.getUroven() + "\n";
+		for(Budova b : budovy)
+			if(b.getUroven()>0)
+			sprava = sprava + b.toString() + ", uroven: " + b.getUroven() + "\n";
+		sprava +="Cesty:\n";
+		for(Cesta c : cesty)
+			if(c!=null)
+			sprava = sprava + c.getOpis(this);
+		return sprava;
 	}
 	public Stajna getStajna(){
 		return this.stajna;
@@ -151,10 +140,12 @@ public class Mesto implements ZakladMesta{
 		for(int i = 0; i<4; i++)
 			for(int j=0;j<4;j++){
 				if(i==j) mesta.get(i).cesty.add(null);
-				else if(i<j)
+				else if(i<j){
 				mesta.get(i).cesty.add(new Cesta(1,mesta.get(i),mesta.get(j)));
-				else if(i>j)
+				}
+				else if(i>j){
 				mesta.get(i).cesty.add(mesta.get(j).cesty.get(i));
+				}
 			}
 	}
 }

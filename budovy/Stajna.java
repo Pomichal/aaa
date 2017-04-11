@@ -29,9 +29,11 @@ public class Stajna extends Budova {
 	
 	public String vyslatVypravu(Mesto start, Mesto ciel, int typ, int mnozstvo, int zamer) throws NedostatokException{
 		if(this.getUroven()>0){
-			 				int dialka= start.getVzdialenost(ciel);
+			 				int dialka= start.getCesta(ciel.getPoloha()).getDlzka();
 			 				if(start.getSklad().getTovar(typ)<mnozstvo)
 			 					throw new NedostatokException("nedostatok tovaru");
+			 				else if(mnozstvo>this.uroven*100) 
+			 					throw new NedostatokException("prekrocena nosnost (max :" + this.uroven*100 + ")");
 			 				else if(mnozstvo*(4-this.uroven)*start.getVzdialenost(ciel)>start.getPeniaze())
 			 					throw new NedostatokException("nedostatok penazi");
 			 				else if(start==ciel) throw new NedostatokException("Rovnaky start aj ciel");
@@ -40,7 +42,7 @@ public class Stajna extends Budova {
 			 						start.getSklad().znizTovar(typ, mnozstvo);
 			 						Vyprava vyp = new Vyprava(start,ciel, typ, mnozstvo,0, zamer);
 			 						vypravy.add(vyp);
-			 						vyp.setPrichod(dialka/(this.uroven));
+			 						vyp.setPrichod(dialka/start.getCesta(ciel.getPoloha()).getUroven());
 			 						start.znizPeniaze(mnozstvo*dialka*(4-this.uroven));
 			 						start.upozorniSledovatelov();
 			 						return "vyprava vytvorena, Cena(" + (4-this.uroven) + " zlato na jednotku/kolo): "+ (4-this.uroven)*dialka;

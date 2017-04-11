@@ -5,12 +5,12 @@ import hra.*;
 
 public class Sklad extends Budova {
 
+	private int[] mnozstvo = {0,0,0,0}; //tipy poloziek:0:bavlna, 1:drevo, 2:kamen, 3:mramor
+	private int[] cena = {0,0,0,0}; //cena tovarov
+	
 	public Sklad(int uroven) {
 		super(uroven);
 	}
-	
-	private int[] mnozstvo = {0,0,0,0}; //tipy poloziek:0:bavlna, 1:drevo, 2:kamen, 3:mramor
-	private int[] cena = {0,0,0,0}; //cena tovarov
 	
 	public void setTovar(int cislo, int mnozstvo){
 		this.mnozstvo[cislo]=mnozstvo;
