@@ -5,46 +5,49 @@ import mesta.*;
 //import mesta.*;
 
 public class Ovciar extends Tovaren {
-	
-	int udrzba; //cena za kolo
 
 	public Ovciar(int uroven) {
 		super(uroven);
 	}
 	public void vyroba(Bavlnovo mesto) {
-		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(0) && mesto.getPeniaze()>30){
+		int cena = 30 + 2*mesto.getVzdialenost(0);
+		if(this.uroven>0 && mesto.getSklad().getVolneMiesto()>mesto.getOkolie(0) && mesto.getPeniaze()>cena){
 		mesto.getSklad().zvysTovar(0, mesto.getOkolie(0)*this.uroven);
-		this.udrzba=30;
-		mesto.znizPeniaze(udrzba);
+		mesto.znizPeniaze(cena);
 		}
 		else mesto.getSklad().vyhoditTovar();
 	}
 
 	public void vyroba(Drevovo mesto) {
-		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(0) && mesto.getPeniaze()>50){
+		int cena = 30 + 2*mesto.getVzdialenost(0);
+		if(this.uroven>0 && mesto.getSklad().getVolneMiesto()>mesto.getOkolie(0) && mesto.getPeniaze()>cena){
 			mesto.getSklad().zvysTovar(0, mesto.getOkolie(0)*this.uroven);
-			this.udrzba=50;
-			mesto.znizPeniaze(udrzba);
+			mesto.znizPeniaze(cena);
 			}
 			else mesto.getSklad().vyhoditTovar();
 		}
 
 	public void vyroba(Kamenovo mesto) {
-		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(0) && mesto.getPeniaze()>50){
+		int cena = 30 + 2*mesto.getVzdialenost(0);
+		if(this.uroven>0 && mesto.getSklad().getVolneMiesto()>mesto.getOkolie(0) && mesto.getPeniaze()>cena){
 			mesto.getSklad().zvysTovar(0, mesto.getOkolie(0)*this.uroven);
-			this.udrzba=50;
-			mesto.znizPeniaze(udrzba);
+			mesto.znizPeniaze(cena);
 			}
 			else mesto.getSklad().vyhoditTovar();
 		}
 
 	public void vyroba(Mramorovo mesto) {
-		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(0) && mesto.getPeniaze()>60){
+		int cena = 30 + 2*mesto.getVzdialenost(0);
+		if(this.uroven>0 && mesto.getSklad().getVolneMiesto()>mesto.getOkolie(0) && mesto.getPeniaze()>cena){
 			mesto.getSklad().zvysTovar(0, mesto.getOkolie(0)*this.uroven);
-			udrzba=60;
-			mesto.znizPeniaze(udrzba);
+			mesto.znizPeniaze(cena);
 			}
 			else mesto.getSklad().vyhoditTovar();
 		}
+	
+	public String zistiVynos(Mesto mesto){
+		return "\ncena za kolo: " + (30 + 2*mesto.getVzdialenost(0)) +
+				"\nVyroba za kolo: " + mesto.getOkolie(0)*(this.uroven+1);
+	}
 
 }

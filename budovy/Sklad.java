@@ -1,12 +1,15 @@
 package budovy;
 
+
+import hra.*;
+
 public class Sklad extends Budova {
 
 	public Sklad(int uroven) {
 		super(uroven);
 	}
 	
-	private int[] mnozstvo = {0,0,0,0}; //tipy poloziek:0:bavlna, 1:drevo, 2:kamen, 3:mramor(?)
+	private int[] mnozstvo = {0,0,0,0}; //tipy poloziek:0:bavlna, 1:drevo, 2:kamen, 3:mramor
 	private int[] cena = {0,0,0,0}; //cena tovarov
 	
 	public void setTovar(int cislo, int mnozstvo){
@@ -50,6 +53,20 @@ public class Sklad extends Budova {
 					else typ++;
 					}
 		}
+	}
+	public void prehodnotCeny(Vyprava vyprava){
+		if(cena[vyprava.getTyp()] >(vyprava.getMnozstvo()/15))
+		this.cena[vyprava.getTyp()] -= (vyprava.getMnozstvo()/15);
+		else if(cena[vyprava.getTyp()] > 5)
+			this.cena[vyprava.getTyp()] -= 5;
+	}
+	public void prehodnotCeny(int kolo, int poloha){
+		if(kolo%20 == 0)
+			for(int i=0; i<4;i++){
+				if(i!=poloha && cena[i]<25)
+					cena[i]++;
+			}
+			
 	}
 	public int getKapacita(){
 		return 1000*uroven;

@@ -1,12 +1,15 @@
 package rozhranie;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
 import mesta.Mesto;
+import vynimky.*;
 
 public class OknoVyprava extends Stage{
 
@@ -53,9 +56,16 @@ public class OknoVyprava extends Stage{
 		}
 		
 		Poslat.setOnAction(e -> {
+			try{
 			if(zamer==2) Rozhranie.getVypis().appendText(start.getObchod().vyslatVypravu(start, ciel, typ, mnoz) + "\n");
 			else
 			 Rozhranie.getVypis().appendText(start.getStajna().vyslatVypravu(start, ciel, typ, mnoz, zamer) + "\n");
+				} catch (NedostatokException ex){
+					Alert a = new Alert(AlertType.ERROR);
+					a.setTitle("Chyba");
+					a.setContentText(ex.getChyba());	
+					a.showAndWait();
+				}		
 			close();
 		});
 		

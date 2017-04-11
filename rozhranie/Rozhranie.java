@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.application.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.*;
 
 public class Rozhranie extends Application{
@@ -135,6 +136,7 @@ public class Rozhranie extends Application{
 		);
 		
 		vyprava.setOnAction(e -> {
+			try{
 			Mesto start=cbstart.getValue();
 			Mesto ciel=cbciel.getValue();
 			int typ=cbtyp.getValue();
@@ -144,6 +146,22 @@ public class Rozhranie extends Application{
 			//else
 			//vypis.appendText(start.getStajna().vyslatVypravu(start, ciel, typ, mnoz, zamer) + "\n");
 			new OknoVyprava(start,ciel,typ,mnoz,zamer);
+			} catch (NullPointerException ex) {
+				Alert a = new Alert(AlertType.ERROR);
+				a.setTitle("Chyba");
+				a.setContentText("Chybajuci udaj");
+				a.showAndWait(); 	
+			}catch (NumberFormatException ex) {
+				Alert a = new Alert(AlertType.ERROR);
+				a.setTitle("Chyba");
+				a.setContentText("Chybajuci udaj");
+				a.showAndWait(); 	
+			}catch (ArithmeticException ex) {
+				Alert a = new Alert(AlertType.ERROR);
+				a.setTitle("Chyba");
+				a.setContentText("V tomto meste nemas stajnu");
+				a.showAndWait(); 	
+			}
 		});
 		
 		BavlnovoTlacidlo.setOnAction(e -> {

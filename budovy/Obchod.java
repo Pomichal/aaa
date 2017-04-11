@@ -5,6 +5,7 @@ import java.util.List;
 
 import hra.Vyprava;
 import mesta.Mesto;
+import vynimky.*;
 
 public class Obchod extends Budova {
 
@@ -28,12 +29,12 @@ transient private List<Vyprava> vypravy = new LinkedList<>();
 		vypravy.remove(index);
 	}
 	
-	public String vyslatVypravu(Mesto start, Mesto ciel, int typ, int mnozstvo){
+	public String vyslatVypravu(Mesto start, Mesto ciel, int typ, int mnozstvo) throws NedostatokException{
 			 				int dialka= start.getVzdialenost(ciel);
-			 				if(start.getSklad().getTovar(typ)<mnozstvo) return ("Nedostatok tovaru");
+			 				if(start.getSklad().getTovar(typ)<mnozstvo) throw new NedostatokException("Nedostatok tovaru");
 			 				else if(mnozstvo*start.getVzdialenost(ciel)*start.getSklad().getCena(typ)>start.getPeniaze())
-			 					return("Nedostatok zlatych");
-			 				else if(start==ciel) return "Rovnaky start aj ciel";
+			 					throw new NedostatokException("Nedostatok zlatych");
+			 				else if(start==ciel) throw new NedostatokException("Rovnaky start aj ciel");
 			 				else{
 			 						if(vypravy.size()<5){
 			 						start.getSklad().znizTovar(typ, mnozstvo);
@@ -45,7 +46,7 @@ transient private List<Vyprava> vypravy = new LinkedList<>();
 			 						return "obchodna vyprava vytvorena, Cena(zlato na jednotku/kolo): "+ mnozstvo*dialka*start.getSklad().getCena(typ);
 			 						}
 			 						else {
-			 						 return ("Nemas volny obchodny karavan!");
+			 							throw new NedostatokException("Nemas volny obchodny karavan!");
 			 						}
 			 				}
 	}

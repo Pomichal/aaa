@@ -8,15 +8,31 @@ import budovy.*;
 import hra.Sledovatel;
 
 public class Mesto implements ZakladMesta{
-	private boolean moje;  //ovladnutie mestskeho trhu
-	private static int peniaze=500;  //zdroje hraca
+	private boolean moje;  //ovladnutie mestskeho trhu, spustenie alebo zastavenie vyroby
+	private static int peniaze=5000;  //zdroje hraca
 	private int poloha;  //"poloha miesta, pre urcovanie vzdialenosti (B:0,D:1,K:2,M:3)
 	protected int[] vzdialenost={0,0,0,0}; //vzdialenost do ostatnych miest (v kolach)
 	protected int[] okolie = {0,0,0,0}; //okolie mesta, urcuje pruduktivitu tovarni
-	private  LinkedList<Tovaren> tovarne = new LinkedList<>();
+	private  LinkedList<Tovaren> tovarne = new LinkedList<>();  //budovy mesta
 	private Stajna stajna;
 	private Sklad sklad;
 	private Obchod obchod;
+	private List<Cesta> cesty = new LinkedList<>(); //cesty do ostatnych miest
+	
+	
+	public class Cesta extends Budova{
+		Mesto start,ciel;
+		int dlzka;
+		public Cesta(int uroven){
+			super(uroven);
+		}
+		public Cesta(int uroven, Mesto start, Mesto ciel){
+			super(uroven);
+			this.start=start;
+			this.ciel=ciel;
+			dlzka=start.getVzdialenost(ciel.getPoloha());
+		}
+	}
 	
 	transient private static List<Sledovatel> sledovatelia = new ArrayList<>();
 
@@ -28,7 +44,6 @@ public class Mesto implements ZakladMesta{
 		for (Sledovatel s : sledovatelia)
 			s.upozorni();
 	}
-
 	
 	
 	public Mesto(boolean moje,int poloha, int b, int d, int k, int m){ //konstruktor
@@ -47,13 +62,18 @@ public class Mesto implements ZakladMesta{
 			this.sklad.setTovar(i,a[i]);
 		}
 	}
+	/*public Cesta setCesta(int uroven, Mesto start, Mesto ciel){
+		return new Cesta(uroven,start,ciel);
+	}*/
 	public void postavBudovu(int typ){
 		switch(typ){
 		case 1 : this.stajna.setUroven(1);
-					
 					break;
 		case 2 : this.sklad.setUroven(1);
 		}
+	}
+	public void postavTovaren(int typ){
+		this.tovarne.get(typ).setUroven(1);
 	}
 	public void vylepsiTovaren(int typ){
 		this.tovarne.get(typ).zvysUroven(this);
@@ -106,6 +126,9 @@ public class Mesto implements ZakladMesta{
 	public int getVzdialenost(Mesto ciel){
 		return this.vzdialenost[ciel.getPoloha()];
 	}
+	public int getVzdialenost(int i){
+		return this.vzdialenost[i];
+	}
 	public int getPeniaze(){
 		return peniaze;
 	}
@@ -117,5 +140,21 @@ public class Mesto implements ZakladMesta{
 	}
 	public void vyroba(Tovaren tovaren){  //pre kazdy typ mesta specificke
 
+	}
+	public Cesta getCesta(int index){
+		return cesty.get(index);
+	}
+	public List<Cesta> getCesty(){
+		return this.cesty;
+	}
+	public void nastavCesty(List<Mesto> mesta){
+		for(int i = 0; i<4; i++)
+			for(int j=0;j<4;j++){
+				if(i==j) mesta.get(i).cesty.add(null);
+				else if(i<j)
+				mesta.get(i).cesty.add(new Cesta(1,mesta.get(i),mesta.get(j)));
+				else if(i>j)
+				mesta.get(i).cesty.add(mesta.get(j).cesty.get(i));
+			}
 	}
 }

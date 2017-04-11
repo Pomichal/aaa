@@ -35,7 +35,7 @@ public class OknoPostav extends Stage{
 		vypis.appendText("Postavit budovu " + budova + "?\n" +
 				     "Potrebny tovar: " + (50 + 20*budova.getUroven()) + "/ " + + (50 + 20*budova.getUroven()) + "/ " 
 				     			+ (50 + 20*budova.getUroven()) + "/ " + (50 + 20*budova.getUroven()) + "\n" +
-				     		"cena: " + (300 + 300*budova.getUroven()));
+				     		"cena stavby: " + (300 + 300*budova.getUroven()) + budova.zistiVynos(mesto));
 	
 		Potvrdit.setOnAction(e -> {
 			zdroj.getVypis().appendText(budova.zvysUroven(mesto));

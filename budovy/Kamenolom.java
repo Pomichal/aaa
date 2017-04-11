@@ -16,35 +16,43 @@ public class Kamenolom extends Tovaren {
 	}
 
 	public void vyroba(Bavlnovo mesto) {
-		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(2) && mesto.getPeniaze()>45){
+		int cena = 30 + 2*mesto.getVzdialenost(2);
+		if(this.uroven>0 && mesto.getSklad().getVolneMiesto()>mesto.getOkolie(2) && mesto.getPeniaze()>cena){
 		mesto.getSklad().zvysTovar(2, mesto.getOkolie(2)*this.uroven);
-		mesto.znizPeniaze(45);
+		mesto.znizPeniaze(cena);
 		}
 		else mesto.getSklad().vyhoditTovar();
 	}
 
 	public void vyroba(Drevovo mesto) {
-		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(2) && mesto.getPeniaze()>45){
+		int cena = 30 + 2*mesto.getVzdialenost(2);
+		if(this.uroven>0 && mesto.getSklad().getVolneMiesto()>mesto.getOkolie(2) && mesto.getPeniaze()>cena){
 			mesto.getSklad().zvysTovar(2, mesto.getOkolie(2)*this.uroven);
-			mesto.znizPeniaze(45);
+			mesto.znizPeniaze(cena);
 			}
 			else mesto.getSklad().vyhoditTovar();
 		}
 
 	public void vyroba(Kamenovo mesto) {
-		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(2) && mesto.getPeniaze()>30){
+		int cena = 30 + 2*mesto.getVzdialenost(2);
+		if(this.uroven>0 && mesto.getSklad().getVolneMiesto()>mesto.getOkolie(2) && mesto.getPeniaze()>cena){
 			mesto.getSklad().zvysTovar(2, mesto.getOkolie(2)*this.uroven);
-			mesto.znizPeniaze(30);
+			mesto.znizPeniaze(cena);
 			}
 			else mesto.getSklad().vyhoditTovar();
 		}
 
 	public void vyroba(Mramorovo mesto) {
-		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(2) && mesto.getPeniaze()>50){
+		int cena = 30 + 2*mesto.getVzdialenost(2);
+		if(this.uroven>0 && mesto.getSklad().getVolneMiesto()>mesto.getOkolie(2) && mesto.getPeniaze()>cena){
 			mesto.getSklad().zvysTovar(2, mesto.getOkolie(2)*this.uroven);
-			mesto.znizPeniaze(50);
+			mesto.znizPeniaze(cena);
 			}
 			else mesto.getSklad().vyhoditTovar();
 		}
+	public String zistiVynos(Mesto mesto){
+		return "\ncena za kolo: " + (30 + 2*mesto.getVzdialenost(2)) +
+				"\nVyroba za kolo: " + mesto.getOkolie(2)*(this.uroven+1);
+	}
 
 }

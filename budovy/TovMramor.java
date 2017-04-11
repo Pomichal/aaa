@@ -15,36 +15,43 @@ public class TovMramor extends Tovaren{
 		return mesto.getOkolie(3);
 	}
 	public void vyroba(Bavlnovo mesto) {
-		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(3) && mesto.getPeniaze()>60){
+		int cena=30 + 2*mesto.getVzdialenost(3);
+		if(this.uroven>0 && mesto.getSklad().getVolneMiesto()>mesto.getOkolie(3) && mesto.getPeniaze()>cena){
 		mesto.getSklad().zvysTovar(3, mesto.getOkolie(3)*this.uroven);
-		mesto.znizPeniaze(60);
+		mesto.znizPeniaze(cena);
 		}
 		else mesto.getSklad().vyhoditTovar();
 	}
 
 	public void vyroba(Drevovo mesto) {
-		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(3) && mesto.getPeniaze()>50){
+		int cena = 30 + 2*mesto.getVzdialenost(3);
+		if(this.uroven>0 && mesto.getSklad().getVolneMiesto()>mesto.getOkolie(3) && mesto.getPeniaze()>cena){
 			mesto.getSklad().zvysTovar(3, mesto.getOkolie(3)*this.uroven);
-			mesto.znizPeniaze(50);
+			mesto.znizPeniaze(cena);
 			}
 			else mesto.getSklad().vyhoditTovar();
 		}
 
 	public void vyroba(Kamenovo mesto) {
-		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(3) && mesto.getPeniaze()>45){
+		int cena = 30 + 2*mesto.getVzdialenost(3);
+		if(this.uroven>0 && mesto.getSklad().getVolneMiesto()>mesto.getOkolie(3) && mesto.getPeniaze()>cena){
 			mesto.getSklad().zvysTovar(3, mesto.getOkolie(3)*this.uroven);
-			mesto.znizPeniaze(45);
+			mesto.znizPeniaze(cena);
 			}
 			else mesto.getSklad().vyhoditTovar();
 		}
 
 	public void vyroba(Mramorovo mesto) {
-		if(mesto.getSklad().getVolneMiesto()>mesto.getOkolie(3) && mesto.getPeniaze()>30){
+		int cena = 30 + 2*mesto.getVzdialenost(3);
+		if(this.uroven>0 && mesto.getSklad().getVolneMiesto()>mesto.getOkolie(3) && mesto.getPeniaze()>cena){
 			mesto.getSklad().zvysTovar(3, mesto.getOkolie(3)*this.uroven);
-			mesto.znizPeniaze(30);
+			mesto.znizPeniaze(cena);
 			}
 			else mesto.getSklad().vyhoditTovar();
 		}
-
+	public String zistiVynos(Mesto mesto){
+		return "\ncena za kolo: " + (30 + 2*mesto.getVzdialenost(3)) +
+				"\nVyroba za kolo: " + mesto.getOkolie(3)*(uroven+1);
+	}
 
 }

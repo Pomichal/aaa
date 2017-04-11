@@ -3,6 +3,7 @@ package budovy;
 import java.util.*;
 import hra.*;
 import mesta.*;
+import vynimky.*;
 
 public class Stajna extends Budova {
 	public Stajna(int uroven){
@@ -26,14 +27,14 @@ public class Stajna extends Budova {
 		vypravy.remove(index);
 	}
 	
-	public String vyslatVypravu(Mesto start, Mesto ciel, int typ, int mnozstvo, int zamer){
+	public String vyslatVypravu(Mesto start, Mesto ciel, int typ, int mnozstvo, int zamer) throws NedostatokException{
 		if(this.getUroven()>0){
-			 			if(start.getMoje()){
 			 				int dialka= start.getVzdialenost(ciel);
-			 				if(start.getSklad().getTovar(typ)<mnozstvo) return ("Nedostatok tovaru");
+			 				if(start.getSklad().getTovar(typ)<mnozstvo)
+			 					throw new NedostatokException("nedostatok tovaru");
 			 				else if(mnozstvo*(4-this.uroven)*start.getVzdialenost(ciel)>start.getPeniaze())
-			 					return("Nedostatok zlatych");
-			 				else if(start==ciel) return "Rovnaky start aj ciel";
+			 					throw new NedostatokException("nedostatok penazi");
+			 				else if(start==ciel) throw new NedostatokException("Rovnaky start aj ciel");
 			 				else{
 			 						if(vypravy.size()<2*this.uroven){
 			 						start.getSklad().znizTovar(typ, mnozstvo);
@@ -45,12 +46,11 @@ public class Stajna extends Budova {
 			 						return "vyprava vytvorena, Cena(" + (4-this.uroven) + " zlato na jednotku/kolo): "+ (4-this.uroven)*dialka;
 			 						}
 			 						else {
-			 						 return ("Nemas volny karavan!");
+			 						  throw new NedostatokException("Nemas volny karavan!");
 			 						}
 			 				}
-			 			} else 	return("Toto mesto neovladas");
-		}
-		return "V tomto meste nemas stajnu";
+		}else
+		throw new NedostatokException("V tomto meste nemas stajnu");
 	}
 	public String overPrichod(Mesto mesto){
 		int i;
@@ -62,8 +62,10 @@ public class Stajna extends Budova {
 	    	if(vyprava.getPrichod()==0 && vyprava.getMnozstvo()!=0){
 				sprava = sprava + "vyprava (" + vypravy.indexOf(vyprava) + ") dorazila, predany tovar: " + vyprava.getMnozstvo() + " kus(ov)\n";
 				if(vyprava.getZamer()==0){
+					vyprava.getCiel().getSklad().prehodnotCeny(vyprava);
 				vyprava.setZdroje(vyprava.getCiel().getSklad().getCena(vyprava.getTyp())*vyprava.getMnozstvo());
 				vyprava.setMnozstvo(0);
+				vyprava.getCiel().getSklad().prehodnotCeny(vyprava);
 				} else{
 					vyprava.getCiel().getSklad().zvysTovar(vyprava.getTyp(), vyprava.getMnozstvo());
 					vyprava.setMnozstvo(0);

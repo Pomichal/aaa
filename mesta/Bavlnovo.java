@@ -1,9 +1,9 @@
 package mesta;
 
+
 import budovy.Tovaren;
 
 public class Bavlnovo extends Mesto {
-	
 	
 	public Bavlnovo(boolean moje,int poloha, int b, int d, int k, int m){
 		super(moje,poloha,b,d,k,m);
@@ -15,4 +15,5 @@ public class Bavlnovo extends Mesto {
 	public void vyroba(Tovaren tovaren){  //pre kazdy typ mesta specificke
 		tovaren.vyroba(this);
 	}
+	
 }

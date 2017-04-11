@@ -15,9 +15,10 @@ import javafx.stage.Stage;
 import mesta.Mesto;
 
 public class OknoMesto extends Stage{
+	private Button ZastavVyrobu = new Button("Zastav vyrobu");
 	private Button Vylepsit = new Button("Postavit/Vylepsit");
 	private Label bohatstvo = new Label("Peniaze:");
-	private static TextArea vypis = new TextArea();
+	private TextArea vypis = new TextArea();
 	private ScrollPane skrolVypis = new ScrollPane(vypis);
 	
 	public TextArea getVypis(){
@@ -29,6 +30,7 @@ public class OknoMesto extends Stage{
 		super();
 		setTitle(mesta.get(index).toString());
 		
+		vypis.clear();
 		final SledovatelPenazi Peniaze;
 		final ComboBox<Budova> cbbudovy = new ComboBox<Budova>(FXCollections.observableArrayList(mesta.get(index).getBudovy()));
 		mesta.get(index).upozorniSledovatelov();
@@ -36,12 +38,17 @@ public class OknoMesto extends Stage{
 		
 		Peniaze = new SledovatelPenazi(mesta.get(index));
 		mesta.get(index).pridajSledovatela(Peniaze);
+		Peniaze.setPrefWidth(45);
 		pane.getChildren().add(bohatstvo);
 		pane.getChildren().add(Peniaze);
 		pane.getChildren().add(cbbudovy);
 		pane.getChildren().add(Vylepsit);
 		pane.getChildren().add(vypis);
 		pane.getChildren().add(skrolVypis);
+		pane.getChildren().add(ZastavVyrobu);
+		
+		if(mesta.get(index).getMoje()) ZastavVyrobu.setText("Zastav vyrobu");
+		else ZastavVyrobu.setText("Spusti vyrobu");
 		
 		Vylepsit.setOnAction(e -> {
 			Budova budova = cbbudovy.getValue();
@@ -49,6 +56,12 @@ public class OknoMesto extends Stage{
 			new OknoVylepsenie(mesta.get(index),budova,this);
 			else
 				new OknoPostav(mesta.get(index),budova,this);
+		});
+		
+		ZastavVyrobu.setOnAction(e -> {
+			mesta.get(index).setMoje(!mesta.get(index).getMoje());
+			if(mesta.get(index).getMoje()) ZastavVyrobu.setText("Zastav vyrobu");
+			else ZastavVyrobu.setText("Spusti vyrobu");
 		});
 		
 		

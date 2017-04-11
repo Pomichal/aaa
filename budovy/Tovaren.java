@@ -11,6 +11,7 @@ public abstract class Tovaren extends Budova {
 		mesto.setMoje(true);
 		return super.zvysUroven(mesto);
 	}
+	
 		//Zabezpeci vyrobu v mestach podla typu
 	    public abstract void vyroba(Bavlnovo mesto);
 	    public abstract void vyroba(Drevovo mesto);
