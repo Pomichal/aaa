@@ -18,6 +18,7 @@ import mesta.Mesto;
 public class OknoMesto extends Stage{
 	private Button ZastavVyrobu = new Button("Zastav vyrobu");
 	private Button Vylepsit = new Button("Postavit/Vylepsit");
+	private Button VylepCestu = new Button("Vylepsit cestu");
 	private Label bohatstvo = new Label("Peniaze:");
 	private Label budovy = new Label("budovy:");
 	private TextArea vypis = new TextArea();
@@ -40,6 +41,7 @@ public class OknoMesto extends Stage{
 		vypis.clear();
 		final SledovatelPenazi Peniaze;
 		final ComboBox<Budova> cbbudovy = new ComboBox<Budova>(FXCollections.observableArrayList(mesta.get(index).getBudovy()));
+		final ComboBox<String> cbcesty = new ComboBox<String>(FXCollections.observableArrayList(mesta.get(index).getCestyOpis()));
 		mesta.get(index).upozorniSledovatelov();
 		FlowPane pane = new FlowPane();
 		
@@ -50,6 +52,8 @@ public class OknoMesto extends Stage{
 		pane.getChildren().add(Peniaze);
 		pane.getChildren().add(cbbudovy);
 		pane.getChildren().add(Vylepsit);
+		pane.getChildren().add(cbcesty);
+		pane.getChildren().add(VylepCestu);
 		pane.getChildren().add(vypis);
 		pane.getChildren().add(skrolVypis);
 		pane.getChildren().add(budovy);
@@ -70,6 +74,8 @@ public class OknoMesto extends Stage{
 		}
 		pane.getChildren().add(ZastavVyrobu);
 		
+		cbbudovy.setPrefWidth(70);
+		cbcesty.setPrefWidth(70);
 		vypis.setPrefHeight(50);
 		vypisbud.setPrefHeight(100);
 		vypisbud.appendText(mesta.get(index).getBudova());
@@ -83,6 +89,18 @@ public class OknoMesto extends Stage{
 			new OknoVylepsenie(mesta.get(index),budova,this);
 			else
 				new OknoPostav(mesta.get(index),budova,this);
+		});
+		
+		VylepCestu.setOnAction(e -> {
+			String str = cbcesty.getValue();
+			if(str.contains("Bavlnovo"))
+				new OknoVylepsenie(mesta.get(index),mesta.get(index).getCesta(0),this);
+			else if(str.contains("Drevovo"))
+				new OknoVylepsenie(mesta.get(index),mesta.get(index).getCesta(1),this);
+			else if(str.contains("Kamenovo"))
+				new OknoVylepsenie(mesta.get(index),mesta.get(index).getCesta(2),this);
+			else if(str.contains("Mramorovo"))
+				new OknoVylepsenie(mesta.get(index),mesta.get(index).getCesta(3),this);
 		});
 		
 		ZastavVyrobu.setOnAction(e -> {

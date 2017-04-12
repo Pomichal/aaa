@@ -50,5 +50,39 @@ public class OknoVylepsenie extends Stage {
 		setScene(new Scene(pane, 500, 300));
 		show();
 }
-
+public OknoVylepsenie(Mesto mesto, Cesta cesta, OknoMesto zdroj){
+		
+		setTitle("Vylepsit Budovu?");
+		
+		final SledovatelPenazi Peniaze = new SledovatelPenazi(mesto);
+		mesto.pridajSledovatela(Peniaze);
+		
+		FlowPane pane = new FlowPane();
+		
+		pane.getChildren().add(bohatstvo);
+		pane.getChildren().add(Peniaze);
+		pane.getChildren().add(vypis);
+		pane.getChildren().add(Potvrdit);
+		pane.getChildren().add(Zrusit);
+		
+		mesto.upozorniSledovatelov();
+		
+		vypis.appendText("Vylepsit budovu " + cesta + " na uroven " + (cesta.getUroven()+1) + "?\n" +
+				     "Potrebny tovar: (V mestach:" +cesta.getStart() + " a " + cesta.getCiel() +
+				     ") :\n"+ (50 + 20*cesta.getUroven()) + "/ " + + (50 + 20*cesta.getUroven()) + "/ " 
+				     			+ (50 + 20*cesta.getUroven()) + "/ " + (50 + 20*cesta.getUroven()) + "\n" +
+				     		"cena cesty: " + (300 + 300*cesta.getUroven()) + cesta.zistiVynos(mesto));	
+	
+		Potvrdit.setOnAction(e -> {
+			zdroj.getVypis().appendText(cesta.zvysUroven(mesto));
+			close();
+		});
+		
+		Zrusit.setOnAction(e -> {
+			close();
+		});
+	
+		setScene(new Scene(pane, 500, 300));
+		show();
+}
 }

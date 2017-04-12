@@ -136,6 +136,14 @@ public class Mesto implements ZakladMesta{
 	public List<Cesta> getCesty(){
 		return this.cesty;
 	}
+	public List<String> getCestyOpis(){
+		List<String> sprava = new LinkedList<>();
+		for(int i=0;i<4;i++){
+			if(cesty.get(i)!=null)
+			sprava.add("cesta " + cesty.get(i).getOpis(this));
+		}
+		return sprava;
+	}
 	public void nastavCesty(List<Mesto> mesta){
 		for(int i = 0; i<4; i++)
 			for(int j=0;j<4;j++){

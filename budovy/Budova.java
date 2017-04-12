@@ -53,6 +53,9 @@ public abstract class Budova {
 	public void zvysUroven(){
 		this.uroven+=1;
 	}
+	public void addStavba(Budova budova){
+		stavby.add(new Stavba(5*(uroven+1),budova));
+	}
 		public int getUroven(){
 			return uroven;
 		}
