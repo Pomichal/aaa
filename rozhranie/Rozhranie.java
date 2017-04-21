@@ -6,6 +6,8 @@ import java.util.LinkedList;
 
 import hra.*;
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.application.*;
 import javafx.scene.*;
@@ -34,13 +36,14 @@ public class Rozhranie extends Application{
 	private Label[] Tovar3 ={new Label("Bavlna:"),new Label("Drevo:"),new Label("Kamen:"),new Label("Mramor:")};	
 	private Label[] Tovar4 ={new Label("Bavlna:"),new Label("Drevo:"),new Label("Kamen:"),new Label("Mramor:")};	
 	
-	private Label startOzn = new Label("Start");
-	private Label cielOzn = new Label("Ciel");
-	private Label typTovaruOzn = new Label("TypTovaru");	
-	private Label mnozstvoTovaruOzn = new Label("MnozstvoTovaru");
+	private Label startOzn = new Label("Start:");
+	private Label cielOzn = new Label("Ciel:");
+	private Label typTovaruOzn = new Label("TypTovaru:");	
+	private Label mnozstvoTovaruOzn = new Label("MnozstvoTovaru:");
 	private Label zamerOzn = new Label("Zamer vypravy: ");
 	private Label bohatstvo = new Label("Peniaze:");
 	private Label pocetkol = new Label("Kolo:");
+	private Label vyslat = new Label("Poslat vypravu:");
 	private TextField mnozstvo = new TextField();
 	
 
@@ -62,66 +65,77 @@ public class Rozhranie extends Application{
 
 	public void start(Stage hlavneOkno) {
 		hlavneOkno.setTitle("Semitas et Civitas");
-		FlowPane pane = new FlowPane();
+		GridPane pane = new GridPane();
 		
-		pane.getChildren().add(turn);
+		pane.setMinSize(500, 400);
+		pane.setPadding(new Insets(10,10,10,10));
+		pane.setVgap(5);
+		pane.setHgap(5);
+		pane.setAlignment(Pos.TOP_CENTER);
+		
+		pane.add(turn,0,0);
 
 		
 		Kolo = new SledovatelKol();
 		Mesta.get(0).pridajSledovatela(Kolo);
-		pane.getChildren().add(pocetkol);
-		Kolo.setPrefWidth(100);
-		pane.getChildren().add(Kolo);
-		pane.getChildren().add(skrolVypis);
-		skrolVypis.setPrefHeight(100);
+		pane.add(pocetkol,1,0);
+		Kolo.setPrefWidth(50);
+		pane.add(Kolo,2,0);
+		pane.add(skrolVypis,0,1,9,1);
+		skrolVypis.setPrefHeight(150);
 
-		pane.getChildren().add(BavlnovoTlacidlo);
+		pane.add(BavlnovoTlacidlo,0,3);
 		for(int i=0; i<4;i++){
 			Bav[i]=new SledovatelTovaru(Mesta.get(0),i);
+			Bav[i].setPrefWidth(50);
 			Mesta.get(0).pridajSledovatela(Bav[i]);
-			pane.getChildren().add(Tovar1[i]);
-			pane.getChildren().add(Bav[i]);
-			Bav[i].setPrefWidth(55);
+			pane.add(Tovar1[i],i*2+1,3);
+			pane.add(Bav[i],2+i*2,3);
 		}
 		
-		pane.getChildren().add(DrevovoTlacidlo);
+		pane.add(DrevovoTlacidlo,0,4);
 		for(int i=0; i<4;i++){
 			Drev[i]=new SledovatelTovaru(Mesta.get(1),i);
 			Mesta.get(0).pridajSledovatela(Drev[i]);
-			pane.getChildren().add(Tovar2[i]);
-			pane.getChildren().add(Drev[i]);
-			Drev[i].setPrefWidth(55);
+			pane.add(Tovar2[i],i*2+1,4);
+			pane.add(Drev[i],2+i*2,4);
+			Drev[i].setPrefWidth(50);
 		}
 
-		pane.getChildren().add(KamenovoTlacidlo);
+		pane.add(KamenovoTlacidlo,0,5);
 		for(int i=0; i<4;i++){
 			Kam[i]=new SledovatelTovaru(Mesta.get(2),i);
 			Mesta.get(0).pridajSledovatela(Kam[i]);
-			pane.getChildren().add(Tovar3[i]);
-			pane.getChildren().add(Kam[i]);
-			Kam[i].setPrefWidth(55);
+			pane.add(Tovar3[i],i*2+1,5);
+			pane.add(Kam[i],i*2+2,5);
+			Kam[i].setPrefWidth(50);
 		}
 		
 
-		pane.getChildren().add(MramorovoTlacidlo);
+		pane.add(MramorovoTlacidlo,0,6);
 		for(int i=0; i<4;i++){
 			Mram[i]=new SledovatelTovaru(Mesta.get(3),i);
 			Mesta.get(0).pridajSledovatela(Mram[i]);
-			pane.getChildren().add(Tovar4[i]);
-			pane.getChildren().add(Mram[i]);
-			Mram[i].setPrefWidth(60);
+			pane.add(Tovar4[i],i*2+1,6);
+			pane.add(Mram[i],i*2+2,6);
+			Mram[i].setPrefWidth(50);
 		}
-		pane.getChildren().add(startOzn);
-		pane.getChildren().add(cbstart);
-		pane.getChildren().add(cielOzn);
-		pane.getChildren().add(cbciel);
-		pane.getChildren().add(typTovaruOzn);
-		pane.getChildren().add(cbtyp);
-		pane.getChildren().add(mnozstvoTovaruOzn);
-		pane.getChildren().add(mnozstvo);
-		pane.getChildren().add(zamerOzn);
-		pane.getChildren().add(cbzamer);
-		pane.getChildren().add(vyprava);
+		
+		pane.add(vyslat, 0, 8);
+		pane.add(startOzn,0,9);
+		pane.add(cbstart,1,9,3,1);
+//		cbstart.setPrefWidth(50);
+		pane.add(cielOzn,0,10);
+		pane.add(cbciel,1,10,3,1);
+//		cbciel.setPrefWidth(50);
+		pane.add(typTovaruOzn,0,11);
+		pane.add(cbtyp,1,11);
+		pane.add(mnozstvoTovaruOzn,5,9,2,1);
+		pane.add(mnozstvo,7,9);
+		mnozstvo.setPrefColumnCount(1);
+		pane.add(zamerOzn,5,10,2,1);
+		pane.add(cbzamer,7,10);
+		pane.add(vyprava,0,12);
 		
 		
 		turn.setText("Zacat hru");
@@ -184,10 +198,12 @@ public class Rozhranie extends Application{
 		
 		Peniaze = new SledovatelPenazi(Mesta.get(0));
 		Mesta.get(0).pridajSledovatela(Peniaze);;
-		pane.getChildren().add(bohatstvo);
-		pane.getChildren().add(Peniaze);
+		pane.add(bohatstvo,0,7);
+		Peniaze.setPrefWidth(50);
+		pane.add(Peniaze,1,7);
 		
-		hlavneOkno.setScene(new Scene(pane, 500, 400));
+		
+		hlavneOkno.setScene(new Scene(pane, 550, 600));
 		hlavneOkno.show();
 	}
 	public static void main(String[] args) {

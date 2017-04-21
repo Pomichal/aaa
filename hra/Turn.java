@@ -1,13 +1,11 @@
 package hra;
 
-import java.io.*;
 import java.util.*;
 import budovy.*;
 import mesta.*;
 
-public class Turn implements Serializable{
+public class Turn{
 
-public static final long serialVersionUID = 0;
 private static int kolo=0;
 	
 	public static String vypis(List<Mesto> Mesta){ //vypis ceny pre kontrolu
