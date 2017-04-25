@@ -8,6 +8,10 @@ import mesta.Mramorovo;
 
 public class Kamenolom extends Tovaren {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public Kamenolom(int uroven) {
 		super(uroven);
 	}

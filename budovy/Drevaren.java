@@ -8,6 +8,10 @@ import mesta.Mramorovo;
 
 public class Drevaren extends Tovaren {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public Drevaren(int uroven) {
 		super(uroven);
 	}

@@ -9,6 +9,11 @@ import vynimky.*;
 
 public class Obchod extends Budova {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Obchod(int uroven) {
 		super(uroven);
 	}
@@ -29,12 +34,12 @@ transient private List<Vyprava> vypravy = new LinkedList<>();
 		vypravy.remove(index);
 	}
 	
-	public String vyslatVypravu(Mesto start, Mesto ciel, int typ, int mnozstvo) throws NedostatokException{
+	public String vyslatVypravu(Mesto start, Mesto ciel, int typ, int mnozstvo) throws MojException{
 			 				int dialka= start.getVzdialenost(ciel);
-			 				if(start.getSklad().getTovar(typ)<mnozstvo) throw new NedostatokException("Nedostatok tovaru");
+			 				if(start.getSklad().getTovar(typ)<mnozstvo) throw new MojException("Nedostatok tovaru");
 			 				else if(mnozstvo*start.getVzdialenost(ciel)*start.getSklad().getCena(typ)>start.getPeniaze())
-			 					throw new NedostatokException("Nedostatok zlatych");
-			 				else if(start==ciel) throw new NedostatokException("Rovnaky start aj ciel");
+			 					throw new MojException("Nedostatok zlatych");
+			 				else if(start==ciel) throw new MojException("Rovnaky start aj ciel");
 			 				else{
 			 						if(vypravy.size()<5){
 			 						start.getSklad().znizTovar(typ, mnozstvo);
@@ -42,11 +47,11 @@ transient private List<Vyprava> vypravy = new LinkedList<>();
 			 						vypravy.add(vyp);
 			 						vyp.setPrichod(dialka);
 			 						start.znizPeniaze(mnozstvo*dialka*start.getSklad().getCena(typ));
-			 						start.upozorniSledovatelov();
+			 				//		start.upozorniSledovatelov();
 			 						return "obchodna vyprava vytvorena, Cena(zlato na jednotku/kolo): "+ mnozstvo*dialka*start.getSklad().getCena(typ);
 			 						}
 			 						else {
-			 							throw new NedostatokException("Nemas volny obchodny karavan!");
+			 							throw new MojException("Nemas volny obchodny karavan!");
 			 						}
 			 				}
 	}
@@ -65,7 +70,7 @@ transient private List<Vyprava> vypravy = new LinkedList<>();
 				i--;
 				}
 		}
-		mesto.upozorniSledovatelov();
+//		mesto.upozorniSledovatelov();
 		return sprava;
 	}
 	

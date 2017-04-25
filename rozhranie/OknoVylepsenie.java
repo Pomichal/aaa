@@ -1,6 +1,7 @@
 package rozhranie;
 
 import budovy.*;
+import hra.Turn;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,12 +17,12 @@ public class OknoVylepsenie extends Stage {
 	private TextArea vypis = new TextArea();
 	private Label bohatstvo = new Label("Peniaze:");
 	
-	public OknoVylepsenie(Mesto mesto, Budova budova, OknoMesto zdroj){
+	public OknoVylepsenie(Mesto mesto, Budova budova, OknoMesto zdroj, Turn turn){
 		
 		setTitle("Vylepsit Budovu?");
 		
 		final SledovatelPenazi Peniaze = new SledovatelPenazi(mesto);
-		mesto.pridajSledovatela(Peniaze);
+		turn.pridajSledovatela(Peniaze);
 		
 		FlowPane pane = new FlowPane();
 		
@@ -31,7 +32,7 @@ public class OknoVylepsenie extends Stage {
 		pane.getChildren().add(Potvrdit);
 		pane.getChildren().add(Zrusit);
 		
-		mesto.upozorniSledovatelov();
+		turn.upozorniSledovatelov();
 		
 		vypis.appendText("Vylepsit budovu " + budova + " na uroven " + (budova.getUroven()+1) + "?\n" +
 				     "Potrebny tovar: " + (50 + 20*budova.getUroven()) + "/ " + + (50 + 20*budova.getUroven()) + "/ " 
@@ -40,6 +41,7 @@ public class OknoVylepsenie extends Stage {
 	
 		Potvrdit.setOnAction(e -> {
 			zdroj.getVypis().appendText(budova.zvysUroven(mesto));
+			turn.upozorniSledovatelov();
 			close();
 		});
 		
@@ -50,12 +52,12 @@ public class OknoVylepsenie extends Stage {
 		setScene(new Scene(pane, 500, 300));
 		show();
 }
-public OknoVylepsenie(Mesto mesto, Cesta cesta, OknoMesto zdroj){
+public OknoVylepsenie(Mesto mesto, Cesta cesta, OknoMesto zdroj, Turn turn){
 		
 		setTitle("Vylepsit Budovu?");
 		
 		final SledovatelPenazi Peniaze = new SledovatelPenazi(mesto);
-		mesto.pridajSledovatela(Peniaze);
+		turn.pridajSledovatela(Peniaze);
 		
 		FlowPane pane = new FlowPane();
 		
@@ -65,7 +67,7 @@ public OknoVylepsenie(Mesto mesto, Cesta cesta, OknoMesto zdroj){
 		pane.getChildren().add(Potvrdit);
 		pane.getChildren().add(Zrusit);
 		
-		mesto.upozorniSledovatelov();
+		turn.upozorniSledovatelov();
 		
 		vypis.appendText("Vylepsit budovu " + cesta + " na uroven " + (cesta.getUroven()+1) + "?\n" +
 				     "Potrebny tovar: (V mestach:" +cesta.getStart() + " a " + cesta.getCiel() +

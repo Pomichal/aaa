@@ -1,5 +1,6 @@
 package rozhranie;
 
+import hra.Turn;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -18,12 +19,12 @@ public class OknoVyprava extends Stage{
 	private TextArea vypis = new TextArea();
 	private Label bohatstvo = new Label("Peniaze:");
 	
-	public OknoVyprava(Mesto start, Mesto ciel, int typ, int mnoz, int zamer){
+	public OknoVyprava(Mesto start, Mesto ciel, int typ, int mnoz, int zamer, Turn turn){
 		
 		setTitle("Poslat vypravu?");
 
 		final SledovatelPenazi Peniaze = new SledovatelPenazi(start);
-		start.pridajSledovatela(Peniaze);
+		turn.pridajSledovatela(Peniaze);
 		
 		FlowPane pane = new FlowPane();
 		
@@ -33,7 +34,7 @@ public class OknoVyprava extends Stage{
 		pane.getChildren().add(Poslat);
 		pane.getChildren().add(Zrusit);
 		
-		start.upozorniSledovatelov();
+		turn.upozorniSledovatelov();
 		
 		vypis.appendText("Poslat vypravu?\nz: " +
 						 start.toString() + "\ndo: " +
@@ -54,18 +55,20 @@ public class OknoVyprava extends Stage{
 									"cena: " + mnoz*start.getVzdialenost(ciel)*start.getSklad().getCena(typ));
 				break;
 		}
+		turn.upozorniSledovatelov();
 		
 		Poslat.setOnAction(e -> {
 			try{
 			if(zamer==2) Rozhranie.getVypis().appendText(start.getObchod().vyslatVypravu(start, ciel, typ, mnoz) + "\n");
 			else
 			 Rozhranie.getVypis().appendText(start.getStajna().vyslatVypravu(start, ciel, typ, mnoz, zamer) + "\n");
-				} catch (NedostatokException ex){
+				} catch (MojException ex){
 					Alert a = new Alert(AlertType.ERROR);
 					a.setTitle("Chyba");
 					a.setContentText(ex.getChyba());	
 					a.showAndWait();
 				}		
+			turn.upozorniSledovatelov();
 			close();
 		});
 		

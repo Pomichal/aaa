@@ -3,6 +3,10 @@ package budovy;
 import mesta.*;
 
 public abstract class Tovaren extends Budova {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public Tovaren(int uroven){
 		   super(uroven);
 	   }  

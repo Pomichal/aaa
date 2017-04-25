@@ -5,6 +5,10 @@ import hra.*;
 
 public class Sklad extends Budova {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int[] mnozstvo = {0,0,0,0}; //tipy poloziek:0:bavlna, 1:drevo, 2:kamen, 3:mramor
 	private int[] cena = {0,0,0,0}; //cena tovarov
 	
@@ -29,6 +33,12 @@ public class Sklad extends Budova {
 	}
 	public int getCena(int cislo){
 		return cena[cislo];
+	}
+	public String getCeny(){
+		String sprava = "Ceny:\n"
+				+ " Bavlna: " + getCena(0) + ", Drevo: " + getCena(1)
+				+ ", Kamen: " + getCena(2) + ", Mramor: " + getCena(3);
+		return sprava;
 	}
 	public void setCeny(int b, int d, int k, int m){
 		int i;

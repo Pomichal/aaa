@@ -1,11 +1,16 @@
 package budovy;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 import mesta.Mesto;
 
-public abstract class Budova {
+public abstract class Budova implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected int uroven;
 	
 	 public Budova(int uroven){
@@ -40,7 +45,7 @@ public abstract class Budova {
 		}
 		 //  this.uroven++;
 		stavby.add(new Stavba(5*(uroven+1),this));
-		   mesto.upozorniSledovatelov();
+//		   mesto.upozorniSledovatelov();
 		   return "Stavba sa zacala, trvanie:" + 5*(uroven+1) + "\n";
 		}
 		else if(uroven<4) return "nedostatok zdrojov\n";

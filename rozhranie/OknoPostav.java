@@ -1,6 +1,7 @@
 package rozhranie;
 
 import budovy.*;
+import hra.Turn;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,12 +16,12 @@ public class OknoPostav extends Stage{
 	private TextArea vypis = new TextArea();
 	private Label bohatstvo = new Label("Peniaze:");
 	
-	public OknoPostav(Mesto mesto, Budova budova, OknoMesto zdroj){
+	public OknoPostav(Mesto mesto, Budova budova, OknoMesto zdroj, Turn turn){
 		
 		setTitle("Postavit Budovu?");
 		
 		final SledovatelPenazi Peniaze = new SledovatelPenazi(mesto);
-		mesto.pridajSledovatela(Peniaze);
+		turn.pridajSledovatela(Peniaze);
 		
 		FlowPane pane = new FlowPane();
 		
@@ -30,7 +31,7 @@ public class OknoPostav extends Stage{
 		pane.getChildren().add(Potvrdit);
 		pane.getChildren().add(Zrusit);
 		
-		mesto.upozorniSledovatelov();
+		turn.upozorniSledovatelov();
 		
 		vypis.appendText("Postavit budovu " + budova + "?\n" +
 				     "Potrebny tovar: " + (50 + 20*budova.getUroven()) + "/ " + + (50 + 20*budova.getUroven()) + "/ " 

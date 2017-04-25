@@ -1,13 +1,16 @@
 package mesta;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
 import budovy.*;
-import hra.Sledovatel;
 
-public class Mesto implements ZakladMesta{
+public class Mesto implements ZakladMesta, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private boolean moje;  //ovladnutie mestskeho trhu, spustenie alebo zastavenie vyroby
 	private static int peniaze=5000;  //zdroje hraca
 	private int poloha;  //"poloha miesta, pre urcovanie vzdialenosti (B:0,D:1,K:2,M:3)
@@ -19,7 +22,7 @@ public class Mesto implements ZakladMesta{
 	private Obchod obchod;
 	private List<Cesta> cesty = new LinkedList<>(); //cesty do ostatnych miest
 	
-	transient private static List<Sledovatel> sledovatelia = new ArrayList<>();
+//	transient private static List<Sledovatel> sledovatelia = new ArrayList<>();
 	
 	public Mesto(boolean moje,int poloha, int b, int d, int k, int m){ //konstruktor
 		int i;
@@ -38,7 +41,7 @@ public class Mesto implements ZakladMesta{
 		}
 	}
 	
-	//pre vzor Observer
+/*	//pre vzor Observer
 	public void pridajSledovatela(Sledovatel sledovatelStavu) {
 		sledovatelia.add(sledovatelStavu);
 	}
@@ -46,7 +49,7 @@ public class Mesto implements ZakladMesta{
 	public void upozorniSledovatelov() {
 		for (Sledovatel s : sledovatelia)
 			s.upozorni();
-	}
+	}*/
 	
 	public void postavTovaren(int typ){
 		this.tovarne.get(typ).setUroven(1);
