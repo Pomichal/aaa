@@ -19,7 +19,7 @@ public class Turn implements Serializable{
 	transient private List<Sledovatel> sledovatelia = new ArrayList<>();
 	private LinkedList<Mesto> Mesta = new LinkedList<>(Nastav());
 
-//pre vzor Observer
+	//pre vzor Observer
 	public void pridajSledovatela(Sledovatel sledovatelStavu) {
 		sledovatelia.add(sledovatelStavu);
 	}
@@ -79,7 +79,7 @@ public class Turn implements Serializable{
 		kolo++;
 	}
 	
-	public String Kolo(List<Mesto> mesta) throws MojException{  //prebehnu stavby a posunutie vyprav
+	public String Kolo(List<Mesto> mesta) throws MojException{  //prebehnu stavby, vyroba a posunutie vyprav
 		int i;
 		String sprava="";
 		for(i=0;i<4; i++){

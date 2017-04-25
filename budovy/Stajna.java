@@ -6,16 +6,13 @@ import mesta.*;
 import vynimky.*;
 
 public class Stajna extends Budova {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
+	private List<Vyprava> vypravy = new LinkedList<>();
 
 	public Stajna(int uroven){
 		   super(uroven);
 	   }
-	
-	transient private List<Vyprava> vypravy = new LinkedList<>();
 	
 	public int getUroven(){
 		return uroven;
@@ -87,7 +84,6 @@ public class Stajna extends Budova {
 				i--;
 			}
 		}
-	//	mesto.upozorniSledovatelov();
 		return sprava;
 	}
 	

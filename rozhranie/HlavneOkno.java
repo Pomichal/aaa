@@ -18,12 +18,10 @@ public class HlavneOkno extends Application{
 	private Button start = new Button("Nova hra");
 	private Button uloz = new Button("Ulozit hru");
 	private Button nacitaj = new Button("Nacitaj hru");
-	
+	private Turn turn = new Turn();
+	private Rozhranie roz = new Rozhranie(turn);
 
 	public void start(Stage hlavneOkno){
-		
-		Turn turn = new Turn();
-		Rozhranie roz = new Rozhranie(turn); 
 		
 		hlavneOkno.setTitle("Semitas et Civitas");
 		GridPane pane = new GridPane();
@@ -43,12 +41,15 @@ public class HlavneOkno extends Application{
 		});
 		
 		nacitaj.setOnAction(e -> {
+			roz.close();
   			FileChooser fc = new FileChooser();
   			fc.setTitle("Nacitaj");
   			File f = fc.showOpenDialog(roz);
 
 			try {
 				turn.nacitaj(f);
+				roz = new Rozhranie(turn);
+				roz.show();
 			} catch (ClassNotFoundException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

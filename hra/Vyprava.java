@@ -1,9 +1,12 @@
 package hra;
 
+import java.io.Serializable;
+
 import mesta.*;
 
-public class Vyprava {
+public class Vyprava implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private int typ, mnozstvo, zdroje, prichod,zamer;
 	private Mesto start,ciel;
 	

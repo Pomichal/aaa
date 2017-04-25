@@ -8,6 +8,4 @@ public interface ZakladMesta {
 		int getPeniaze();
 		void zvysPeniaze(int peniaze);
 		void znizPeniaze(int peniaze);
-	//	void setVzdialenost(int b, int d, int k, int m);
-	//	int getVzdialenost(int cislo);
 }

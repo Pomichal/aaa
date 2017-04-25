@@ -5,13 +5,12 @@ import mesta.*;
 import vynimky.MojException;
 
 public class Cesta extends Budova {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	Mesto start,ciel;
 	int dlzka;
 	int riziko;
+	
 	public Cesta(int uroven){
 		super(uroven);
 		riziko = 95 + uroven;
@@ -46,14 +45,13 @@ public class Cesta extends Budova {
 			ciel.getSklad().znizTovar(i, (50 + (20*uroven)));
 		}
 		addStavba(this);
-//		start.upozorniSledovatelov();
 		   return "Stavba cesty sa zacala, trvanie:" + 5*(uroven+1) + "\n";
 		}
 		else if(uroven<4) return "nedostatok zdrojov\n";
 		else return "Cesta ma maximalnu uroven\n";
 	}
 	
-	public void zvysUroven(){
+	public void zvysUroven(){ //prekonanie metody z triedy Budova
 		super.zvysUroven();
 		this.riziko = 65 + this.uroven*10;
 		this.dlzka=start.getVzdialenost(ciel.getPoloha()) - 2*(uroven-1);

@@ -3,9 +3,7 @@ package budovy;
 import mesta.*;
 
 public abstract class Tovaren extends Budova {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	public Tovaren(int uroven){
 		   super(uroven);
@@ -16,7 +14,7 @@ public abstract class Tovaren extends Budova {
 		return super.zvysUroven(mesto);
 	}
 	
-		//Zabezpeci vyrobu v mestach podla typu
+		//Zabezpeci vyrobu v mestach podla typu, vzor Visitor
 	    public abstract void vyroba(Bavlnovo mesto);
 	    public abstract void vyroba(Drevovo mesto);
 	    public abstract void vyroba(Kamenovo mesto);

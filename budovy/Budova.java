@@ -7,11 +7,10 @@ import java.util.List;
 import mesta.Mesto;
 
 public abstract class Budova implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	protected int uroven;
+	 private static List<Stavba> stavby = new LinkedList<>();
 	
 	 public Budova(int uroven){
 		   setUroven(uroven);
@@ -29,8 +28,7 @@ public abstract class Budova implements Serializable{
 			 this.trvanie--;
 		 }
 	 }
-	 
-	 private static List<Stavba> stavby = new LinkedList<>();
+	
 	 
 	 public static List<Stavba> getStavby(){
 		 return stavby;
@@ -43,9 +41,7 @@ public abstract class Budova implements Serializable{
 		for(int i=0; i<4;i++){
 			mesto.getSklad().znizTovar(i, (50 + (20*uroven)));
 		}
-		 //  this.uroven++;
 		stavby.add(new Stavba(5*(uroven+1),this));
-//		   mesto.upozorniSledovatelov();
 		   return "Stavba sa zacala, trvanie:" + 5*(uroven+1) + "\n";
 		}
 		else if(uroven<4) return "nedostatok zdrojov\n";

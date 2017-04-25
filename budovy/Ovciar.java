@@ -2,13 +2,8 @@ package budovy;
 
 import mesta.*;
 
-//import mesta.*;
-
 public class Ovciar extends Tovaren {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Ovciar(int uroven) {

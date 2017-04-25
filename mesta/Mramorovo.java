@@ -3,9 +3,7 @@ package mesta;
 import budovy.Tovaren;
 
 public class Mramorovo extends Mesto {
-	/**
-	 * 
-	 */
+	 
 	private static final long serialVersionUID = 1L;
 	public Mramorovo(boolean moje,int poloha, int b, int d, int k, int m){
 		super(moje,poloha,b,d,k,m);

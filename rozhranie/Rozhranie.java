@@ -151,10 +151,8 @@ public class Rozhranie extends Stage{
 		pane.add(vyslat, 0, 8);
 		pane.add(startOzn,0,9);
 		pane.add(cbstart,1,9,3,1);
-//		cbstart.setPrefWidth(50);
 		pane.add(cielOzn,0,10);
 		pane.add(cbciel,1,10,3,1);
-//		cbciel.setPrefWidth(50);
 		pane.add(typTovaruOzn,0,11);
 		pane.add(cbtyp,1,11);
 		pane.add(mnozstvoTovaruOzn,5,9,2,1);
@@ -174,18 +172,18 @@ public class Rozhranie extends Stage{
 			a.setContentText(ex.getChyba());	
 			a.showAndWait();
 		}
-		
 		turn.setOnAction(e -> { 
 			vypis.clear();
 			hraturn.zvysKolo();
 			try {
-				vypis.appendText(hraturn.Kolo(Mesta)
-								+ hraturn.vypisVypravy(Mesta));
+				vypis.appendText(hraturn.Kolo(Mesta));
 			} catch (MojException ex) {
 				Alert a = new Alert(AlertType.ERROR);
 				a.setTitle("Chyba");
 				a.setContentText(ex.getChyba());	
 				a.showAndWait();
+			}finally{
+				vypis.appendText(hraturn.vypisVypravy(Mesta));
 			}
 			}
 		);

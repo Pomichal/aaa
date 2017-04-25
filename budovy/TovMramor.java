@@ -8,9 +8,6 @@ import mesta.Mramorovo;
 
 public class TovMramor extends Tovaren{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	public TovMramor(int uroven) {
 		super(uroven);

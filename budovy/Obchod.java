@@ -9,16 +9,12 @@ import vynimky.*;
 
 public class Obchod extends Budova {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private List<Vyprava> vypravy = new LinkedList<>();
 
 	public Obchod(int uroven) {
 		super(uroven);
 	}
-	
-transient private List<Vyprava> vypravy = new LinkedList<>();
 	
 	public int getUroven(){
 		return uroven;
@@ -47,7 +43,6 @@ transient private List<Vyprava> vypravy = new LinkedList<>();
 			 						vypravy.add(vyp);
 			 						vyp.setPrichod(dialka);
 			 						start.znizPeniaze(mnozstvo*dialka*start.getSklad().getCena(typ));
-			 				//		start.upozorniSledovatelov();
 			 						return "obchodna vyprava vytvorena, Cena(zlato na jednotku/kolo): "+ mnozstvo*dialka*start.getSklad().getCena(typ);
 			 						}
 			 						else {
@@ -70,7 +65,6 @@ transient private List<Vyprava> vypravy = new LinkedList<>();
 				i--;
 				}
 		}
-//		mesto.upozorniSledovatelov();
 		return sprava;
 	}
 	

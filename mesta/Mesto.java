@@ -7,9 +7,7 @@ import java.util.List;
 import budovy.*;
 
 public class Mesto implements ZakladMesta, Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private boolean moje;  //ovladnutie mestskeho trhu, spustenie alebo zastavenie vyroby
 	private static int peniaze=5000;  //zdroje hraca
@@ -21,8 +19,6 @@ public class Mesto implements ZakladMesta, Serializable{
 	private Sklad sklad;
 	private Obchod obchod;
 	private List<Cesta> cesty = new LinkedList<>(); //cesty do ostatnych miest
-	
-//	transient private static List<Sledovatel> sledovatelia = new ArrayList<>();
 	
 	public Mesto(boolean moje,int poloha, int b, int d, int k, int m){ //konstruktor
 		int i;
@@ -40,17 +36,7 @@ public class Mesto implements ZakladMesta, Serializable{
 			this.sklad.setTovar(i,a[i]);
 		}
 	}
-	
-/*	//pre vzor Observer
-	public void pridajSledovatela(Sledovatel sledovatelStavu) {
-		sledovatelia.add(sledovatelStavu);
-	}
-	
-	public void upozorniSledovatelov() {
-		for (Sledovatel s : sledovatelia)
-			s.upozorni();
-	}*/
-	
+
 	public void postavTovaren(int typ){
 		this.tovarne.get(typ).setUroven(1);
 	}
