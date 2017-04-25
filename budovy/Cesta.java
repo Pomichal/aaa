@@ -32,6 +32,9 @@ public class Cesta extends Budova {
 	public Mesto getCiel(){
 		return this.ciel;
 	}
+	public int getRiziko(){
+		return this.riziko;
+	}
 	public String zvysUroven(Mesto mesto){  //treba tovar z oboch miest na vylepsenie cesty
 		if(uroven<3 && start.getSklad().getTovar(0)>=(50 + (20*uroven)) && start.getSklad().getTovar(1)>=(50 + (20*uroven)) && 
 				start.getSklad().getTovar(2)>=(50 + (20*uroven)) && start.getSklad().getTovar(3)>=(50 + (20*uroven)) && start.getPeniaze()>=(300 + 300 * uroven)

@@ -40,7 +40,8 @@ public class OknoVyprava extends Stage{
 						 start.toString() + "\ndo: " +
 						 ciel.toString() + "\ntyp tovaru: " +
 						 typ + "\nmnozstvo: " + mnoz + 
-						 "\nocakavany zisk:" + ciel.getSklad().getCena(typ)*mnoz + "\n");
+						 "\nocakavany zisk:" + ciel.getSklad().getCena(typ)*mnoz + "\nriziko:"
+						 + (100 - start.getCesta(ciel.getPoloha()).getRiziko()) + "%\n");
 		switch(zamer){
 		case 0 : vypis.appendText("trvanie cesty: " + (start.getCesta(ciel.getPoloha()).getDlzka()) +
 									"\nzamer: predaj tovaru\n" +
