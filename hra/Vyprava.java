@@ -2,6 +2,7 @@ package hra;
 
 import java.io.Serializable;
 
+import budovy.Krcma.Kapitan;
 import mesta.*;
 
 public class Vyprava implements Serializable{
@@ -9,6 +10,7 @@ public class Vyprava implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private int typ, mnozstvo, zdroje, prichod,zamer;
 	private Mesto start,ciel;
+	private Kapitan kapitan;
 	
 	public Vyprava(Mesto start, Mesto ciel, int typ, int mnozstvo, int zdroje, int zamer){
 		this.start=start;
@@ -56,5 +58,11 @@ public class Vyprava implements Serializable{
 	}
 	public void setZamer(int zamer) {
 		this.zamer = zamer;
+	}
+	public void setKapitan(Kapitan kap){
+		this.kapitan = kap;
+	}
+	public Kapitan getKapitan(){
+		return this.kapitan;
 	}
 }
