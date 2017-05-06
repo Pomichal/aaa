@@ -58,6 +58,7 @@ public class Turn implements Serializable{
 				sprava=sprava +j + ". Start: " + vyprava.getStart() + ", Ciel: " + vyprava.getCiel()
 						+ ", typ tovaru: " + vyprava.getTyp() + ",\n\tmnozstvo: " + vyprava.getMnozstvo() 
 						+ " prichod o: " + vyprava.getPrichod() + " kol(o)\n";
+				if(vyprava.getKapitan()!=null) sprava+="Kapitan: " + vyprava.getKapitan().getMeno() + "\n";
 			j++;
 			}
 		}
@@ -105,6 +106,7 @@ public class Turn implements Serializable{
 		Mesta.add(new Mramorovo(false,3,100,100,100,100));
 		Mesta.get(0).postavTovaren(0);	
 		Mesta.get(0).getStajna().zvysUroven();
+		Mesta.get(0).getKrcma().zvysUroven();
 		Mesta.get(1).postavTovaren(1);
 		Mesta.get(0).getSklad().setCeny(3,5,10,15);
 		Mesta.get(1).getSklad().setCeny(5, 3, 10, 15);

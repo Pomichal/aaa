@@ -23,6 +23,9 @@ public class Obchod extends Budova {
 	public List<Vyprava> getVypravy(Mesto mesto){
 		return mesto.getObchod().vypravy;
 	}
+	public List<Vyprava> getVypravy(){
+		return this.vypravy;
+	}
 	public void pridajVypravu(Vyprava vyp) {
 		vypravy.add(vyp);
 	}

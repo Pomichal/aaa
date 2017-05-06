@@ -214,7 +214,7 @@ public class Rozhranie extends Stage{
 				a.showAndWait(); 	
 			}
 		});
-		
+	
 		BavlnovoTlacidlo.setOnAction(e -> {
 		new OknoMesto(Mesta,0,hraturn);
 		hraturn.upozorniSledovatelov();

@@ -21,6 +21,9 @@ public class Stajna extends Budova {
 	public List<Vyprava> getVypravy(Mesto mesto){
 		return mesto.getStajna().vypravy;
 	}
+	public List<Vyprava> getVypravy(){
+		return this.vypravy;
+	}
 	
 	public void pridajVypravu(Vyprava vyp) {
 		vypravy.add(vyp);
@@ -46,7 +49,6 @@ public class Stajna extends Budova {
 			 						vypravy.add(vyp);
 			 						vyp.setPrichod(dialka);
 			 						start.znizPeniaze(mnozstvo*dialka*(4-this.uroven));
-			 			//			start.upozorniSledovatelov();
 			 						return "vyprava vytvorena, Cena(" + (4-this.uroven) + " zlato na jednotku/kolo): "+ (4-this.uroven)*dialka;
 			 						}
 			 						else {

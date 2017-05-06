@@ -18,9 +18,14 @@ public class OknoVyprava extends Stage{
 	private Button Zrusit = new Button("Zrusit");
 	private TextArea vypis = new TextArea();
 	private Label bohatstvo = new Label("Peniaze:");
+	private Mesto start;
+	
+	public Mesto getStart(){
+		return start;
+	}
 	
 	public OknoVyprava(Mesto start, Mesto ciel, int typ, int mnoz, int zamer, Turn turn){
-		
+		this.start=start;
 		setTitle("Poslat vypravu?");
 
 		final SledovatelPenazi Peniaze = new SledovatelPenazi(start);

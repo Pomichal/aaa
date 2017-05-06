@@ -50,6 +50,9 @@ public class Vyprava implements Serializable{
 	public void znizPrichod(){
 		this.prichod--;
 	}
+	public void znizPrichod(int prichod){
+		this.prichod-=prichod;
+	}
 	public int getPrichod(){
 		return prichod;
 	}

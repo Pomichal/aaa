@@ -4,9 +4,6 @@ import hra.Vyprava;
 
 public class MojException extends Exception{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String chyba;
 
@@ -30,7 +27,8 @@ public class MojException extends Exception{
 					vyprava.setZdroje(vyprava.getZdroje());
 				}
 				break;
-		default: this.chyba = "Veduci vypravy do mesta " + vyprava.getCiel() + " utrpel nehodu, prichod sa oddialil";
+		default: if(vyprava.getKapitan()!=null) this.chyba = "Kapitan vypravy do mesta " + vyprava.getCiel() + " utrpel nehodu, prichod sa oddialil";
+					else this.chyba = "Tazne zviera si zlomilo nohu, prichod vypravy do mesta " + vyprava.getCiel() + " sa oddialil";
 				vyprava.setPrichod(vyprava.getPrichod()+ 5);
 		}
 	}

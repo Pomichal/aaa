@@ -18,6 +18,7 @@ public class Mesto implements ZakladMesta, Serializable{
 	private Stajna stajna;
 	private Sklad sklad;
 	private Obchod obchod;
+	private Krcma krcma;
 	private List<Cesta> cesty = new LinkedList<>(); //cesty do ostatnych miest
 	
 	public Mesto(boolean moje,int poloha, int b, int d, int k, int m){ //konstruktor
@@ -28,6 +29,7 @@ public class Mesto implements ZakladMesta, Serializable{
 		stajna = new Stajna(0);
 		sklad= new Sklad(1);
 		obchod = new Obchod(1);
+		krcma= new Krcma(0);
 		tovarne.add(new Ovciar(0));
 		tovarne.add(new Drevaren(0));
 		tovarne.add(new Kamenolom(0));
@@ -50,6 +52,7 @@ public class Mesto implements ZakladMesta, Serializable{
 		List<Budova> budovy = new LinkedList<>();
 		budovy.add(this.stajna);
 		budovy.add(this.sklad);
+		budovy.add(this.krcma);
 		for(Tovaren i: this.tovarne)
 			budovy.add(i);
 		return budovy;
@@ -78,6 +81,9 @@ public class Mesto implements ZakladMesta, Serializable{
 	}
 	public Obchod getObchod(){
 		return this.obchod;
+	}
+	public Krcma getKrcma(){
+		return this.krcma;
 	}
 	public void setMoje(boolean moje){
 		this.moje=moje;
