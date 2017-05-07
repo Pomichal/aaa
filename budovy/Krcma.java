@@ -32,10 +32,9 @@ public class Krcma extends Budova{
 				else 
 					meno+=samoh[(int)(Math.random()*(samoh.length-1))];
 			}
-			mRiziko=(int) (Math.random()*4);
+			mRiziko=(int) ((Math.random()*4+0.5));
 			if(mRiziko<3)
 				mPrichod=(int) (Math.random()*4);
-		//	kapitani.add(this);
 		}
 		
 		public int getmRiziko(){
@@ -62,8 +61,5 @@ public class Krcma extends Budova{
 		for(Kapitan kap:kapitani)
 			if(kap.obsadene==false) kap2.add(kap);
 		return kap2;
-	}
-	public LinkedList<Kapitan> getVolneKapitani(){
-		return null;
 	}
 }

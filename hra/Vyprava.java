@@ -19,6 +19,7 @@ public class Vyprava implements Serializable{
 		this.mnozstvo=mnozstvo;
 		this.zdroje=zdroje;
 		this.zamer=zamer;
+		this.prichod=start.getCesta(ciel.getPoloha()).getDlzka();
 	}
 	public void setStart(Mesto start){
 		this.start=start;
@@ -51,7 +52,7 @@ public class Vyprava implements Serializable{
 		this.prichod--;
 	}
 	public void znizPrichod(int prichod){
-		this.prichod-=prichod;
+		this.prichod=this.prichod-prichod;
 	}
 	public int getPrichod(){
 		return prichod;

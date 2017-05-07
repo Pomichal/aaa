@@ -44,7 +44,6 @@ public class Obchod extends Budova {
 			 						start.getSklad().znizTovar(typ, mnozstvo);
 			 						Vyprava vyp = new Vyprava(start,ciel, typ, mnozstvo,0,0);
 			 						vypravy.add(vyp);
-			 						vyp.setPrichod(dialka);
 			 						start.znizPeniaze(mnozstvo*dialka*start.getSklad().getCena(typ));
 			 						return "obchodna vyprava vytvorena, Cena(zlato na jednotku/kolo): "+ mnozstvo*dialka*start.getSklad().getCena(typ);
 			 						}

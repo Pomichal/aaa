@@ -42,12 +42,16 @@ public privileged aspect priradKapitana {
 	
 	after() returning(Vyprava v): call(Vyprava.new(..)){
 		if(mesto.getPeniaze()>=100 && kap!=null){
-		v.setKapitan(kap);
-		kap.zmenObsadene();
-		mesto.znizPeniaze(100);
 		v.znizPrichod(kap.getmPrichod());
+		v.setKapitan(kap);
+		mesto.znizPeniaze(100);
+		kap.zmenObsadene();
 		kap=null;
 		}
+	}
+	after(int i, Vyprava v):call(void Vyprava.setPrichod(int)) && args(i) && target(v){
+		if(v.getKapitan()!=null)
+			v.znizPrichod(v.getKapitan().getmPrichod());
 	}
 	before(Stajna s, int index):call (void Stajna.odoberVypravu(..)) && args(index) && target(s){
 		if(s.getVypravy().get(index).getKapitan()!=null) s.getVypravy().get(index).getKapitan().zmenObsadene();

@@ -47,7 +47,6 @@ public class Stajna extends Budova {
 			 						start.getSklad().znizTovar(typ, mnozstvo);
 			 						Vyprava vyp = new Vyprava(start,ciel, typ, mnozstvo,0, zamer);
 			 						vypravy.add(vyp);
-			 						vyp.setPrichod(dialka);
 			 						start.znizPeniaze(mnozstvo*dialka*(4-this.uroven));
 			 						return "vyprava vytvorena, Cena(" + (4-this.uroven) + " zlato na jednotku/kolo): "+ (4-this.uroven)*dialka;
 			 						}

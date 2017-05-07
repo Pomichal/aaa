@@ -81,8 +81,8 @@ public class Rozhranie extends Stage{
 		
 		final ComboBox<Mesto> cbstart = new ComboBox<Mesto>(FXCollections.observableArrayList(Mesta));
 		final ComboBox<Mesto> cbciel = new ComboBox<Mesto>(FXCollections.observableArrayList(Mesta));
-		final ComboBox<Integer> cbtyp = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2,3));
-		final ComboBox<Integer> cbzamer = new ComboBox<Integer>(FXCollections.observableArrayList(0,1,2));
+		final ComboBox<String> cbtyp = new ComboBox<String>(FXCollections.observableArrayList("Bavlna","Drevo","Kamen","Mramor"));
+		final ComboBox<String> cbzamer = new ComboBox<String>(FXCollections.observableArrayList("Predaj tovaru","Presun tovaru","Najat vypravu na presun"));
 		
 		this.setTitle("Semitas et Civitas");
 		GridPane pane = new GridPane();
@@ -154,12 +154,12 @@ public class Rozhranie extends Stage{
 		pane.add(cielOzn,0,10);
 		pane.add(cbciel,1,10,3,1);
 		pane.add(typTovaruOzn,0,11);
-		pane.add(cbtyp,1,11);
+		pane.add(cbtyp,1,11,2,1);
 		pane.add(mnozstvoTovaruOzn,5,9,2,1);
 		pane.add(mnozstvo,7,9);
 		mnozstvo.setPrefColumnCount(1);
 		pane.add(zamerOzn,5,10,2,1);
-		pane.add(cbzamer,7,10);
+		pane.add(cbzamer,7,10,2,1);
 		pane.add(vyprava,0,12);
 		
 		hraturn.zvysKolo();
@@ -192,9 +192,9 @@ public class Rozhranie extends Stage{
 			try{
 			Mesto start=cbstart.getValue();
 			Mesto ciel=cbciel.getValue();
-			int typ=cbtyp.getValue();
+			int typ=cbtyp.getSelectionModel().selectedIndexProperty().get();
 			int mnoz =Integer.parseInt(mnozstvo.getText());
-			int zamer=cbzamer.getValue();
+			int zamer=cbzamer.getSelectionModel().selectedIndexProperty().get();
 			new OknoVyprava(start,ciel,typ,mnoz,zamer,hraturn);
 			hraturn.upozorniSledovatelov();
 			} catch (NullPointerException ex) {
@@ -242,28 +242,7 @@ public class Rozhranie extends Stage{
 		Peniaze.setPrefWidth(50);
 		pane.add(Peniaze,1,7);
 
-		hraturn.upozorniSledovatelov();
-	/*	final Rectangle rect = new Rectangle(10,10,20,20);
-	 * private Line line = new Line();
-		
-		line.setStartX(10);
-		line.setStartY(10);
-		line.setEndY(20);
-		line.setEndX(50);
-		
-		rect.setFill(Color.ALICEBLUE);
-		rect.setStroke(Color.BLACK);
-		
-		pane.add(line, 1, 12);
-		pane.add(rect, 1, 12);
-		
-		rect.setOnMouseEntered(e ->{
-			
-			line.setEndY(50);
-		});
-		*/
-		
-		
+		hraturn.upozorniSledovatelov();		
 		
 		setScene(new Scene(pane, 550, 600));
 	//	show();
